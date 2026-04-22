@@ -1,0 +1,540 @@
+% Electricity drop10
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Electricity).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.102613 & 0.02567062 & 5.121973 & 0.03277377 & 5.104521 & 0.02593378 & 5.102696 & 0.02605972 & 5.103477 & 0.02517659 & 5.103401 & 0.02592165 \\
+HPE & 4.888348 & 0.01541252 & 4.889794 & 0.01849697 & 4.886618 & 0.0154178 & 4.887232 & 0.01526057 & 4.886554 & 0.01492045 & 4.886847 & 0.01547008 \\
+HTE & 4.872028 & 0.01899808 & 4.857842 & 0.02479434 & 4.869986 & 0.01946089 & 4.870589 & 0.02059548 & 4.868913 & 0.0211017 & 4.870776 & 0.02023882 \\
+OFE & 5.404549 & 0.10208935 & 5.43714 & 0.10612627 & 5.41754 & 0.09862906 & 5.41646 & 0.10179405 & 5.416223 & 0.10073308 & 5.415514 & 0.10203578 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Electricity).}
+\label{fig:Electricity_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.102613) +- (0,0.02567062)
+(HPE,4.888348) +- (0,0.01541252)
+(HTE,4.872028) +- (0,0.01899808)
+(OFE,5.404549) +- (0,0.10208935)
+};
+
+\addplot coordinates {
+(B2E,5.121973) +- (0,0.03277377)
+(HPE,4.889794) +- (0,0.01849697)
+(HTE,4.857842) +- (0,0.02479434)
+(OFE,5.43714) +- (0,0.10612627)
+};
+
+\addplot coordinates {
+(B2E,5.104521) +- (0,0.02593378)
+(HPE,4.886618) +- (0,0.0154178)
+(HTE,4.869986) +- (0,0.01946089)
+(OFE,5.41754) +- (0,0.09862906)
+};
+
+\addplot coordinates {
+(B2E,5.102696) +- (0,0.02605972)
+(HPE,4.887232) +- (0,0.01526057)
+(HTE,4.870589) +- (0,0.02059548)
+(OFE,5.41646) +- (0,0.10179405)
+};
+
+\addplot coordinates {
+(B2E,5.103477) +- (0,0.02517659)
+(HPE,4.886554) +- (0,0.01492045)
+(HTE,4.868913) +- (0,0.0211017)
+(OFE,5.416223) +- (0,0.10073308)
+};
+
+\addplot coordinates {
+(B2E,5.103401) +- (0,0.02592165)
+(HPE,4.886847) +- (0,0.01547008)
+(HTE,4.870776) +- (0,0.02023882)
+(OFE,5.415514) +- (0,0.10203578)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity drop25
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Electricity).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.102613 & 0.02567062 & 5.121297 & 0.03310703 & 5.106673 & 0.02661037 & 5.106285 & 0.02642585 & 5.106114 & 0.02647084 & 5.106517 & 0.02553096 \\
+HPE & 4.888348 & 0.01541252 & 4.888642 & 0.01969591 & 4.887388 & 0.01581247 & 4.887267 & 0.01546979 & 4.886757 & 0.01550169 & 4.886834 & 0.01525108 \\
+HTE & 4.872028 & 0.01899808 & 4.8558 & 0.02545184 & 4.869645 & 0.02075947 & 4.869981 & 0.02123449 & 4.86964 & 0.02156863 & 4.871577 & 0.01988807 \\
+OFE & 5.404549 & 0.10208935 & 5.44192 & 0.10089598 & 5.429203 & 0.09322385 & 5.424069 & 0.09756986 & 5.419424 & 0.09806916 & 5.421943 & 0.09728227 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Electricity).}
+\label{fig:Electricity_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.102613) +- (0,0.02567062)
+(HPE,4.888348) +- (0,0.01541252)
+(HTE,4.872028) +- (0,0.01899808)
+(OFE,5.404549) +- (0,0.10208935)
+};
+
+\addplot coordinates {
+(B2E,5.121297) +- (0,0.03310703)
+(HPE,4.888642) +- (0,0.01969591)
+(HTE,4.8558) +- (0,0.02545184)
+(OFE,5.44192) +- (0,0.10089598)
+};
+
+\addplot coordinates {
+(B2E,5.106673) +- (0,0.02661037)
+(HPE,4.887388) +- (0,0.01581247)
+(HTE,4.869645) +- (0,0.02075947)
+(OFE,5.429203) +- (0,0.09322385)
+};
+
+\addplot coordinates {
+(B2E,5.106285) +- (0,0.02642585)
+(HPE,4.887267) +- (0,0.01546979)
+(HTE,4.869981) +- (0,0.02123449)
+(OFE,5.424069) +- (0,0.09756986)
+};
+
+\addplot coordinates {
+(B2E,5.106114) +- (0,0.02647084)
+(HPE,4.886757) +- (0,0.01550169)
+(HTE,4.86964) +- (0,0.02156863)
+(OFE,5.419424) +- (0,0.09806916)
+};
+
+\addplot coordinates {
+(B2E,5.106517) +- (0,0.02553096)
+(HPE,4.886834) +- (0,0.01525108)
+(HTE,4.871577) +- (0,0.01988807)
+(OFE,5.421943) +- (0,0.09728227)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity drop50
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Electricity).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.102613 & 0.02567062 & 5.120618 & 0.03440466 & 5.112168 & 0.02719154 & 5.109473 & 0.02806335 & 5.111653 & 0.0271139 & 5.110797 & 0.027078 \\
+HPE & 4.888348 & 0.01541252 & 4.888903 & 0.01975569 & 4.887357 & 0.01668425 & 4.888318 & 0.01698594 & 4.887727 & 0.01631333 & 4.887563 & 0.01737132 \\
+HTE & 4.872028 & 0.01899808 & 4.856443 & 0.02534166 & 4.870544 & 0.02235245 & 4.87096 & 0.02193418 & 4.870475 & 0.02315949 & 4.870508 & 0.02118561 \\
+OFE & 5.404549 & 0.10208935 & 5.437914 & 0.10376351 & 5.444512 & 0.09390071 & 5.438376 & 0.09893774 & 5.443974 & 0.09591055 & 5.441369 & 0.09481159 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Electricity).}
+\label{fig:Electricity_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.102613) +- (0,0.02567062)
+(HPE,4.888348) +- (0,0.01541252)
+(HTE,4.872028) +- (0,0.01899808)
+(OFE,5.404549) +- (0,0.10208935)
+};
+
+\addplot coordinates {
+(B2E,5.120618) +- (0,0.03440466)
+(HPE,4.888903) +- (0,0.01975569)
+(HTE,4.856443) +- (0,0.02534166)
+(OFE,5.437914) +- (0,0.10376351)
+};
+
+\addplot coordinates {
+(B2E,5.112168) +- (0,0.02719154)
+(HPE,4.887357) +- (0,0.01668425)
+(HTE,4.870544) +- (0,0.02235245)
+(OFE,5.444512) +- (0,0.09390071)
+};
+
+\addplot coordinates {
+(B2E,5.109473) +- (0,0.02806335)
+(HPE,4.888318) +- (0,0.01698594)
+(HTE,4.87096) +- (0,0.02193418)
+(OFE,5.438376) +- (0,0.09893774)
+};
+
+\addplot coordinates {
+(B2E,5.111653) +- (0,0.0271139)
+(HPE,4.887727) +- (0,0.01631333)
+(HTE,4.870475) +- (0,0.02315949)
+(OFE,5.443974) +- (0,0.09591055)
+};
+
+\addplot coordinates {
+(B2E,5.110797) +- (0,0.027078)
+(HPE,4.887563) +- (0,0.01737132)
+(HTE,4.870508) +- (0,0.02118561)
+(OFE,5.441369) +- (0,0.09481159)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity extended reference window drop0
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Electricity extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.083899 & 0.01710921 &  &  & 5.083899 & 0.01710921 & 5.083639 & 0.01723061 & 5.08294 & 0.016812897 & 5.082669 & 0.017017993 \\
+HPE & 4.831441 & 0.01010562 &  &  & 4.831441 & 0.01010562 & 4.831576 & 0.01018764 & 4.831939 & 0.009703705 & 4.831764 & 0.009794855 \\
+HTE & 4.860386 & 0.01313288 &  &  & 4.860386 & 0.01313288 & 4.86027 & 0.01342708 & 4.860307 & 0.012022093 & 4.860787 & 0.012561895 \\
+OFE & 5.514626 & 0.07380849 &  &  & 5.514626 & 0.07380849 & 5.518939 & 0.07423218 & 5.515247 & 0.075072145 & 5.517238 & 0.073683475 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Electricity extended reference window).}
+\label{fig:Electricity extended reference window_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.083899) +- (0,0.01710921)
+(HPE,4.831441) +- (0,0.01010562)
+(HTE,4.860386) +- (0,0.01313288)
+(OFE,5.514626) +- (0,0.07380849)
+};
+
+\addplot coordinates {
+};
+
+\addplot coordinates {
+(B2E,5.083899) +- (0,0.01710921)
+(HPE,4.831441) +- (0,0.01010562)
+(HTE,4.860386) +- (0,0.01313288)
+(OFE,5.514626) +- (0,0.07380849)
+};
+
+\addplot coordinates {
+(B2E,5.083639) +- (0,0.01723061)
+(HPE,4.831576) +- (0,0.01018764)
+(HTE,4.86027) +- (0,0.01342708)
+(OFE,5.518939) +- (0,0.07423218)
+};
+
+\addplot coordinates {
+(B2E,5.08294) +- (0,0.016812897)
+(HPE,4.831939) +- (0,0.009703705)
+(HTE,4.860307) +- (0,0.012022093)
+(OFE,5.515247) +- (0,0.075072145)
+};
+
+\addplot coordinates {
+(B2E,5.082669) +- (0,0.017017993)
+(HPE,4.831764) +- (0,0.009794855)
+(HTE,4.860787) +- (0,0.012561895)
+(OFE,5.517238) +- (0,0.073683475)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity extended reference window drop10
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Electricity extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.083899 & 0.01710921 & 5.095493 & 0.01950525 & 5.083882 & 0.01691755 & 5.083258 & 0.01691564 & 5.083782 & 0.01648723 & 5.083697 & 0.017076315 \\
+HPE & 4.831441 & 0.01010562 & 4.834849 & 0.01285562 & 4.832059 & 0.01021826 & 4.832132 & 0.01014612 & 4.832065 & 0.01001522 & 4.832032 & 0.009742871 \\
+HTE & 4.860386 & 0.01313288 & 4.850723 & 0.0158942 & 4.859933 & 0.01315188 & 4.860698 & 0.01297739 & 4.860432 & 0.01289431 & 4.860932 & 0.013375654 \\
+OFE & 5.514626 & 0.07380849 & 5.520294 & 0.08763499 & 5.519678 & 0.07260897 & 5.521896 & 0.07331064 & 5.519374 & 0.07256634 & 5.516927 & 0.074063893 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Electricity extended reference window).}
+\label{fig:Electricity extended reference window_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.083899) +- (0,0.01710921)
+(HPE,4.831441) +- (0,0.01010562)
+(HTE,4.860386) +- (0,0.01313288)
+(OFE,5.514626) +- (0,0.07380849)
+};
+
+\addplot coordinates {
+(B2E,5.095493) +- (0,0.01950525)
+(HPE,4.834849) +- (0,0.01285562)
+(HTE,4.850723) +- (0,0.0158942)
+(OFE,5.520294) +- (0,0.08763499)
+};
+
+\addplot coordinates {
+(B2E,5.083882) +- (0,0.01691755)
+(HPE,4.832059) +- (0,0.01021826)
+(HTE,4.859933) +- (0,0.01315188)
+(OFE,5.519678) +- (0,0.07260897)
+};
+
+\addplot coordinates {
+(B2E,5.083258) +- (0,0.01691564)
+(HPE,4.832132) +- (0,0.01014612)
+(HTE,4.860698) +- (0,0.01297739)
+(OFE,5.521896) +- (0,0.07331064)
+};
+
+\addplot coordinates {
+(B2E,5.083782) +- (0,0.01648723)
+(HPE,4.832065) +- (0,0.01001522)
+(HTE,4.860432) +- (0,0.01289431)
+(OFE,5.519374) +- (0,0.07256634)
+};
+
+\addplot coordinates {
+(B2E,5.083697) +- (0,0.017076315)
+(HPE,4.832032) +- (0,0.009742871)
+(HTE,4.860932) +- (0,0.013375654)
+(OFE,5.516927) +- (0,0.074063893)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity extended reference window drop25
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Electricity extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.083899 & 0.01710921 & 5.093562 & 0.01904446 & 5.084416 & 0.0174206 & 5.08389 & 0.01619212 & 5.082973 & 0.01643715 & 5.084671 & 0.01750806 \\
+HPE & 4.831441 & 0.01010562 & 4.83483 & 0.01302809 & 4.832007 & 0.01030473 & 4.831911 & 0.01005812 & 4.832158 & 0.01047047 & 4.831774 & 0.0101064 \\
+HTE & 4.860386 & 0.01313288 & 4.850974 & 0.01728578 & 4.86123 & 0.01416529 & 4.861787 & 0.01370546 & 4.86143 & 0.01320795 & 4.861665 & 0.01399231 \\
+OFE & 5.514626 & 0.07380849 & 5.520191 & 0.08944016 & 5.518629 & 0.07413496 & 5.521454 & 0.07282595 & 5.520012 & 0.07389622 & 5.520558 & 0.07218265 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Electricity extended reference window).}
+\label{fig:Electricity extended reference window_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.083899) +- (0,0.01710921)
+(HPE,4.831441) +- (0,0.01010562)
+(HTE,4.860386) +- (0,0.01313288)
+(OFE,5.514626) +- (0,0.07380849)
+};
+
+\addplot coordinates {
+(B2E,5.093562) +- (0,0.01904446)
+(HPE,4.83483) +- (0,0.01302809)
+(HTE,4.850974) +- (0,0.01728578)
+(OFE,5.520191) +- (0,0.08944016)
+};
+
+\addplot coordinates {
+(B2E,5.084416) +- (0,0.0174206)
+(HPE,4.832007) +- (0,0.01030473)
+(HTE,4.86123) +- (0,0.01416529)
+(OFE,5.518629) +- (0,0.07413496)
+};
+
+\addplot coordinates {
+(B2E,5.08389) +- (0,0.01619212)
+(HPE,4.831911) +- (0,0.01005812)
+(HTE,4.861787) +- (0,0.01370546)
+(OFE,5.521454) +- (0,0.07282595)
+};
+
+\addplot coordinates {
+(B2E,5.082973) +- (0,0.01643715)
+(HPE,4.832158) +- (0,0.01047047)
+(HTE,4.86143) +- (0,0.01320795)
+(OFE,5.520012) +- (0,0.07389622)
+};
+
+\addplot coordinates {
+(B2E,5.084671) +- (0,0.01750806)
+(HPE,4.831774) +- (0,0.0101064)
+(HTE,4.861665) +- (0,0.01399231)
+(OFE,5.520558) +- (0,0.07218265)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity extended reference window drop50
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Electricity extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.083899 & 0.01710921 & 5.093571 & 0.0187585 & 5.088504 & 0.01774938 & 5.088261 & 0.01820242 & 5.087635 & 0.01792055 & 5.087423 & 0.01785743 \\
+HPE & 4.831441 & 0.01010562 & 4.834935 & 0.01320503 & 4.833955 & 0.01103433 & 4.833243 & 0.01126769 & 4.833098 & 0.01088593 & 4.833554 & 0.01169382 \\
+HTE & 4.860386 & 0.01313288 & 4.851626 & 0.01661501 & 4.864755 & 0.01451123 & 4.86461 & 0.0150062 & 4.865145 & 0.01462935 & 4.865377 & 0.0152713 \\
+OFE & 5.514626 & 0.07380849 & 5.522027 & 0.08520634 & 5.525693 & 0.07706755 & 5.524002 & 0.07568269 & 5.525684 & 0.07709825 & 5.525172 & 0.07533509 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Electricity extended reference window).}
+\label{fig:Electricity extended reference window_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.083899) +- (0,0.01710921)
+(HPE,4.831441) +- (0,0.01010562)
+(HTE,4.860386) +- (0,0.01313288)
+(OFE,5.514626) +- (0,0.07380849)
+};
+
+\addplot coordinates {
+(B2E,5.093571) +- (0,0.0187585)
+(HPE,4.834935) +- (0,0.01320503)
+(HTE,4.851626) +- (0,0.01661501)
+(OFE,5.522027) +- (0,0.08520634)
+};
+
+\addplot coordinates {
+(B2E,5.088504) +- (0,0.01774938)
+(HPE,4.833955) +- (0,0.01103433)
+(HTE,4.864755) +- (0,0.01451123)
+(OFE,5.525693) +- (0,0.07706755)
+};
+
+\addplot coordinates {
+(B2E,5.088261) +- (0,0.01820242)
+(HPE,4.833243) +- (0,0.01126769)
+(HTE,4.86461) +- (0,0.0150062)
+(OFE,5.524002) +- (0,0.07568269)
+};
+
+\addplot coordinates {
+(B2E,5.087635) +- (0,0.01792055)
+(HPE,4.833098) +- (0,0.01088593)
+(HTE,4.865145) +- (0,0.01462935)
+(OFE,5.525684) +- (0,0.07709825)
+};
+
+\addplot coordinates {
+(B2E,5.087423) +- (0,0.01785743)
+(HPE,4.833554) +- (0,0.01169382)
+(HTE,4.865377) +- (0,0.0152713)
+(OFE,5.525172) +- (0,0.07533509)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}

@@ -1,0 +1,231 @@
+\documentclass[book,onecolumn, 12pt]{IEEEtran}
+
+
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% --------------------------------------------------
+% Thesis style
+% --------------------------------------------------
+\usepackage{uwf_thesis}
+
+% --------------------------------------------------
+% Core language & encoding
+% --------------------------------------------------
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+
+% --------------------------------------------------
+% Fonts & spacing
+% --------------------------------------------------
+\usepackage{times}        % Times New Roman
+\usepackage{setspace}
+\doublespacing            % keep double spacing for thesis readability
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+% --------------------------------------------------
+% Graphics & tables
+% --------------------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{threeparttable}
+\usepackage{changepage}
+\usepackage[table]{xcolor}
+
+% --------------------------------------------------
+% Captions
+% --------------------------------------------------
+\usepackage[
+  justification=justified,
+  singlelinecheck=false
+]{caption}
+
+\captionsetup{
+  labelsep=space,
+  labelfont=bf,
+  textfont=it
+}
+
+% --------------------------------------------------
+% Lists & text helpers
+% --------------------------------------------------
+\usepackage{enumitem}
+\usepackage{soul}
+\usepackage{csquotes}
+\usepackage{dirtytalk}
+\usepackage{notoccite}
+\usepackage[most]{tcolorbox}
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\achraf}[2][inline]{\todo[caption={},backgroundcolor=blue!30,#1]{\textbf{AC:} #2}}
+\newcommand{\thomas}[2][inline]{\todo[caption={},backgroundcolor=green!30,#1]{\textbf{TR:} #2}}
+\newcommand{\tim}[2][inline]{\todo[caption={},backgroundcolor=purple!30,#1]{\textbf{Tim:} #2}}
+% --------------------------------------------------
+% Acronyms
+% --------------------------------------------------
+\usepackage{acronym}
+
+% --------------------------------------------------
+% Appendices
+% --------------------------------------------------
+\usepackage[page,titletoc,title]{appendix}
+
+% --------------------------------------------------
+% References (IEEE)
+% --------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+
+\usepackage[
+    style=ieee,
+    backend=biber,
+    sorting=nyt,
+    sortcites=true,
+    hyperref=false
+]{biblatex}
+
+\addbibresource{thesis.bib}
+
+% --------------------------------------------------
+% Misc
+% --------------------------------------------------
+\usepackage{pdfpages}
+\pagestyle{plain}
+
+
+% --------------------------------------------------
+% Title
+% --------------------------------------------------
+\title{PERFORMANCE ANALYSIS OF HOTELLINGS'S $T^2$ CONTROL CHART UNDER MISSING DATA IN IOT STREAMS}
+
+\author{Till Thomas Mueller\\
+B.S., Ludwigshafen University of Business and Society, 2023}
+
+\begin{document}
+
+
+% Renaming how it appears
+\renewcommand{\chaptername}{CHAPTER} 
+\renewcommand{\contentsname}{TABLE OF CONTENTS} 
+\renewcommand{\listfigurename}{LIST OF FIGURES}
+\renewcommand{\listtablename}{LIST OF TABLES}
+% left justify footnotes
+
+
+% Inserts title page 
+\maketitle
+\frontmatter
+\pagenumbering{roman}
+
+% Thesis certification page
+\clearpage
+\thispagestyle{empty}
+\begin{center}
+    \textbf{THESIS CERTIFICATION}
+\end{center}
+\begin{singlespace}
+\noindent
+ Till Thomas Mueller defended this thesis on \textbf{March 25, 2026}. The members of the thesis committee were:
+
+\begin{itemize}
+    \setlength\itemsep{-0.5em}
+
+    \item[] \noindent
+    \begin{tabular}{@{}p{8cm} l@{}}
+        Thomas Reichherzer, PhD & Committee Chair
+    \end{tabular}
+    \vspace{0.5\baselineskip}
+
+    \item[] \noindent
+    \begin{tabular}{@{}p{8cm} l@{}}
+        Achraf Cohen, PhD & Committee Member
+    \end{tabular}
+    \vspace{0.5\baselineskip}
+
+    \item[] \noindent
+    \begin{tabular}{@{}p{8cm} l@{}}
+        Brian Jalaian, PhD & Committee Member
+    \end{tabular}
+\end{itemize}
+
+
+
+\vspace{1.0cm}
+
+\noindent Accepted for the Department:
+\begin{itemize}
+  \item[] \noindent
+  \begin{tabular}{@{}p{8cm} l@{}}
+    Thomas Reichherzer, PhD & Chair, Department of Computer Science
+  \end{tabular}
+\end{itemize}
+
+
+\vspace{1.0cm}
+
+\noindent The University of West Florida Office of Graduate Studies verifies the names of the committee members and certifies that the thesis has been approved in accordance with university requirements.
+\end{singlespace}
+\begin{itemize}
+    \item[] \noindent Dr. Melissa Webb, Director of the Office of Graduate Studies
+\end{itemize}
+% ----------------------------
+
+% \includepdf{Q_Thesis_Approval.pdf}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+% --- Arabic chapter numbers in TOC only ---
+\makeatletter
+\begingroup
+\renewcommand{\thechapter}{\arabic{chapter}}
+\tableofcontents
+\endgroup
+\makeatother
+
+\clearpage
+\listoftables
+\clearpage
+\listoffigures
+\clearpage
+\include{acronyms}
+
+\doublespace 
+
+
+%\abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\begin{abstract}
+\normalsize
+This document evaluates the robustness of Hotelling’s $T^2$ multivariate statistical process control chart (MSPC) in the presence of missing data within Internet of Things and environmental sensor networks. While classical $T^2$ charts are widely used for anomaly detection, their behavior under incomplete data—a common challenge in modern sensor deployments—has been insufficiently characterized.  
+
+Using four environmental datasets, the thesis systematically examines how missing observations, reference window degradation, and interpolation-based reconstruction affect false-alarm control (\ac{ARL}$_0$) and detection performance (\ac{ARL}$_1$). Results demonstrate that Hotelling’s $T^2$ exhibits \emph{conditional robustness}: performance remains reliable up to approximately 20–25\% missingness when the reference covariance structure is stable. Beyond this threshold, interpolation alone cannot correct covariance distortion, leading to unstable run-length distributions and inflated false alarms. Seasonal reference extension and hybrid adaptation strategies improve robustness, while datasets with weak inter-variable correlation or nonstationary dynamics are particularly vulnerable.  
+
+These findings provide actionable guidance for practitioners deploying $T^2$ in incomplete-data environments, clarify the limits of classical MSPC, and identify directions for future research, including multivariate imputation, adaptive control limits, and integration with robust or distribution-free monitoring frameworks.
+
+\end{abstract}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\mainmatter
+
+\include{chapters/1_Introduction}
+\include{chapters/2_Lit-Review}
+\include{chapters/3_Methods}
+\include{chapters/4_Results}
+\include{chapters/5_Discussion}
+\include{chapters/6_Framework}
+\include{chapters/7_Conclusion_Future_Work}
+
+\newpage
+\printbibliography[title={REFERENCES}, heading=bibintoc]
+\include{appendix}
+\end{document}

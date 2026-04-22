@@ -1,0 +1,232 @@
+\clearpage
+\section{Methodology}
+
+\subsection{Overview}
+
+This chapter details the methodological framework used to evaluate the robustness of multivariate process monitoring—specifically Hotelling’s $T^2$ statistic—under realistic conditions of missing data, while operating under the presence of autocorrelation typical of environmental data. The objective is to quantify how incomplete observations distort control chart performance and to identify strategies that maintain reliable false-alarm (\ac{ARL}$_0$) and detection (\ac{ARL}$_1$) properties in real \ac{IoT} data streams.
+
+Robustness is evaluated by holding the monitoring statistic fixed while varying data completeness, interpolation strategy, and reference construction.
+This design isolates the contribution of preprocessing and reference design to monitoring stability, rather than conflating robustness with changes to the detection statistic itself.
+
+The methodology consists of five tasks: data selection and preprocessing, reference construction, imputation-based reconstruction, monitoring using Hotelling’s $T^2$, and \ac{ARL}-based performance evaluation.
+
+\subsection{Data Sources and Preprocessing}
+
+The experiments are conducted on multiple datasets to assess reproducibility of findings across similar environmental conditions. Dataset selection prioritizes publicly available sources with consistent sampling structure and known seasonal patterns.
+
+\subsubsection{Datasets}
+
+Experiments use several weather dataset, that are multivariate environmental time series comprising approximately four variables (e.g., temperature, humidity, and wind metrics). The datasets used are part of open data initiative and provides hourly observations from multiple weather stations.
+
+The datasets offer sufficient completeness for controlled missingness experiments, meaningful temporal structure and seasonality, and realistic autocorrelation and noise representative of deployed \ac{IoT} sensors.
+
+\subsubsection{Preprocessing Steps}
+
+All variables are aligned to a common time grid using the dataset’s native sampling frequency. Temporal alignment is performed via resampling to a fixed interval defined by the median sampling rate of each dataset, ensuring consistency across variables while minimizing distortion of the underlying temporal structure.
+
+Prior to experimentation, datasets are preprocessed to establish a clean baseline. This includes removal of existing missing values where possible, ensuring that subsequently introduced missingness is fully controlled and attributable to the experimental design. In cases where minor gaps remain, interpolation is applied solely for alignment purposes and not for performance evaluation.
+
+All variables are further standardized to ensure comparability across dimensions and to prevent scale dominance in covariance estimation. This step is particularly important for Hotelling’s $T^2$, which is sensitive to relative scaling between variables.
+
+Finally, preprocessing preserves the temporal ordering and inherent autocorrelation structure of the data, as these characteristics are central to the evaluation of monitoring performance under realistic IoT conditions.
+
+\subsection{Missing Data and Perturbation Mechanism}
+
+To study the effect of incomplete data on multivariate monitoring, controlled missingness is imposed on both the reference window and the monitoring window.
+
+\subsubsection{Random Row Deletion (\ac{MCAR}-like)}
+
+Missingness is introduced by randomly deleting a specified percentage of complete observation rows. Three missingness levels are considered:
+[
+10\%,\quad 25\%,\quad 50\%.
+]
+
+This mechanism approximates Missing Completely at Random (\ac{MCAR}) behavior and is intended to represent packet loss, temporary sensor outages, and communication interruptions common in \ac{IoT} systems.
+
+MCAR-like missingness represents a best-case robustness scenario; therefore, results should be interpreted as optimistic bounds on the robustness of Hotelling’s $T^2$.
+More complex missingness mechanisms (e.g., \ac{MAR} or \ac{MNAR}) are intentionally excluded, as they require additional modeling assumptions and would confound interpretation of preprocessing-driven robustness.
+
+\subsubsection{Imputation-Based Reconstruction}
+
+After row deletion, incomplete series are reconstructed. Four imputation methods are evaluated: linear interpolation, cubic spline interpolation, last observation carried forward (\ac{LOCF}), and next observation carried backward (\ac{NOCB})
+
+Each imputation method is evaluated as a robustness mechanism for stabilizing covariance estimation and run-length behavior under missing data.
+Methods are applied independently to isolate their impact on monitoring performance.
+
+\subsubsection{Linear Interpolation}
+
+Linear interpolation estimates missing values using adjacent observations.
+Given two observed points at times \(t_i\) and \(t_{i+k}\), with values \(\mathbf{x}_{t_i}\) and \(\mathbf{x}_{t_{i+k}}\), any missing value \(\mathbf{x}_{t_j}\) for \(t_i < t_j < t_{i+k}\) is imputed as:
+
+\begin{equation}
+\mathbf{x}_{t_j} = \mathbf{x}_{t_i} +
+\frac{t_j - t_i}{t_{i+k} - t_i}
+\left(\mathbf{x}_{t_{i+k}} - \mathbf{x}_{t_i}\right)
+\end{equation}
+
+Linear interpolation assumes local linearity and is computationally efficient. It preserves monotonic trends but may distort curvature and higher-order temporal structure. Despite its simplicity, linear interpolation often performs well for environmental variables exhibiting smooth diurnal or seasonal variation.
+
+
+\subsubsection{Cubic Spline Interpolation}
+
+Cubic spline interpolation fits a piecewise third-order polynomial to the observed data, enforcing continuity in the function, first derivative, and second derivative.  
+Let \(S(t)\) be the spline function. For each interval \([t_i, t_{i+1}]\), a cubic polynomial
+
+\begin{equation}
+S_i(t) = a_i + b_i(t - t_i) + c_i(t - t_i)^2 + d_i(t - t_i)^3
+\end{equation}
+
+is fitted using boundary conditions derived from neighboring points.
+
+Cubic spline interpolation captures curvature and nonlinear dynamics but may introduce oscillatory artifacts near abrupt changes. Its flexibility makes it well suited to environmental series, though it can amplify noise in sparse regions.
+
+
+\subsubsection{Last Observation Carried Forward (\ac{LOCF})}
+
+\ac{LOCF} imputes missing values by carrying forward the most recently observed value. For a missing time point \(t_j\), with the last observed point at \(t_i < t_j\), the imputation is:
+
+\begin{equation}
+\mathbf{x}_{t_j} = \mathbf{x}_{t_i}
+\end{equation}
+
+\ac{LOCF} preserves low-frequency structure but may bias variance estimates downward by creating flat segments. In monitoring contexts, this can reduce sensitivity to small but persistent shifts.
+
+
+\subsubsection{Next Observation Carried Backward (\ac{NOCB})}
+
+\ac{NOCB} imputes each missing value using the next available observation. For a missing time point \(t_j\), with the next observed point at \(t_{i+k} > t_j\), the estimate is:
+
+\begin{equation}
+\mathbf{x}_{t_j} = \mathbf{x}_{t_{i+k}}.
+\end{equation}
+
+\ac{NOCB} mirrors \ac{LOCF} in reverse time. It is appropriate when delayed reporting occurs but similarly suppresses short-term variability.
+
+\subsection{Reference Construction Strategies}
+
+The reference window is used to estimate the in-control mean vector $\boldsymbol{\mu}$ and covariance matrix $\boldsymbol{\Sigma}$. Reference robustness is particularly critical in \ac{IoT} settings because baseline models are often constructed offline and reused for extended periods, making them more vulnerable to missingness and degradation than online monitoring statistics.
+
+Three reference configurations are considered.
+
+\subsubsection{Baseline Reference}
+
+A clean, complete reference dataset is used to establish the baseline Hotelling’s $T^2$ configuration. This serves as the ground truth against which all perturbations are evaluated.
+
+\subsubsection{Perturbed Reference (with Missingness)}
+
+For each missingness level, the reference window is corrupted via random row deletion and reconstructed using each interpolation method, yielding:
+
+\begin{equation}
+\widehat{\boldsymbol{\mu}}^{(m)} \quad \widehat{\boldsymbol{\Sigma}}^{(m)}
+\label{eq:estimates}
+\end{equation}
+
+
+where $(m)$ indexes the missingness–interpolation configuration.
+
+\subsubsection{Seasonal Reference Window Extension}
+
+To account for strong seasonal structure, the reference dataset is extended by incorporating corresponding time periods from previous years, with observations aligned on a daily basis. Let \( d \) denote the number of days per year (with \( d = 365 \) in our example). The extended reference window is defined as:
+
+\begin{equation}
+\mathcal{R}^{\text{ext}} = \bigcup_{k=0}^{K}
+\left[ t_1 - k \cdot d, \; t_2 - k \cdot d \right]
+\label{eq:seasonal_reference}
+\end{equation}
+
+where \( [t_1, t_2] \) denotes the original reference window in the current year, and \( k \) indexes seasonal lags in yearly increments. The parameter \( K \) specifies the number of past years included and is determined by data availability.
+
+
+This construction aggregates observations from the same seasonal phase across multiple years, thereby increasing the effective sample size while preserving recurring temporal patterns. As a result, covariance estimation becomes more stable in the presence of seasonality, as observations reflect comparable environmental or operational conditions.
+
+The extended reference window is evaluated under both clean and perturbed reference conditions to assess its effectiveness in stabilizing monitoring performance under missing data.
+
+\subsection{Monitoring Phase}
+
+The classical Hotelling’s $T^2$ statistic is applied:
+
+\begin{equation}
+T_t^2 =
+(\mathbf{x}_t - \widehat{\boldsymbol{\mu}})^\top
+\widehat{\boldsymbol{\Sigma}}^{-1}
+(\mathbf{x}_t - \widehat{\boldsymbol{\mu}})
+\label{eq:hotelling_t2}
+\end{equation}
+
+where $\mathbf{x}_t \in \mathbb{R}^p$ denotes the observed multivariate data vector at time $t$, 
+$\widehat{\boldsymbol{\mu}} \in \mathbb{R}^p$ is the estimated in-control mean vector, 
+and $\widehat{\boldsymbol{\Sigma}} \in \mathbb{R}^{p \times p}$ is the estimated in-control covariance matrix. The superscript $(\cdot)^\top$ denotes the transpose of a vector or matrix.
+
+A signal is triggered when:
+
+\begin{equation}
+T_t^2 > h
+\label{eq:control_limit}
+\end{equation}
+
+where $h$ is chosen to achieve a nominal \ac{ARL}$_0$ (e.g., 200 or 500) under multivariate normality assumptions. Monitoring is performed sequentially on reconstructed series.
+
+\subsection{Performance Evaluation}
+
+Key Metrics
+
+\paragraph{In-Control Average Run Length (\ac{ARL}$_0$)}
+Stability of \ac{ARL}$_0$ under missingness is the primary indicator of robustness.
+
+\paragraph{Minimal Detectable Shift}
+The smallest shift magnitude required to achieve detection at a specified confidence level.
+
+\paragraph{Out-of-Control Average Run Length (\ac{ARL}$_1$)/ Minimal detectable shift}
+The minimal detectable shift is used for evaluating \ac{ARL}$_1$ since we calculate the minimal detectable shift based on a threshold, that refelects the \ac{ARL}$_1$.
+
+\subsection{Statistical Uncertainty and Significance Assessment}
+
+All performance metrics are on sampled real-world data and are therefore
+subject to sampling variability. To ensure reliable interpretation, statistical
+uncertainty is quantified for all reported results.
+
+\paragraph{Standard Error of Run Length Metrics}
+For each configuration, the standard error (SE) of the estimated run length is computed as:
+\begin{equation}
+SE = \frac{s}{\sqrt{N}},
+\end{equation}
+where $s$ is the sample standard deviation of the run length distribution and $N$
+is the number of simulation runs. The SE reflects the precision of the estimated
+mean \ac{ARL}.
+
+\paragraph{Confidence Intervals}
+Approximate confidence intervals are constructed assuming asymptotic normality of
+the sample mean. A $(1-\alpha)$ confidence interval is given by:
+\begin{equation}
+\hat{\mu} \pm z_{1-\alpha/2} \cdot SE,
+\end{equation}
+where $\hat{\mu}$ is the estimated mean run length and $z_{1-\alpha/2}$ is the
+standard normal quantile (e.g., $1.96$ for 95\% confidence).
+
+\paragraph{Interpretation of Variability}
+Due to the skewed and heavy-tailed nature of run-length distributions, mean values
+must be interpreted jointly with dispersion measures. Large variability relative to
+the mean indicates unstable monitoring behavior, even when average \ac{ARL} remains
+near nominal levels.
+
+\paragraph{Significance in Comparative Analysis}
+Differences between configurations are considered meaningful only if they exceed
+the corresponding confidence intervals. This avoids overinterpreting small differences
+arising from stochastic simulation variability.
+
+Overall, uncertainty measures complement mean \ac{ARL}-based evaluation and support
+robust, reproducible comparisons across missingness levels and interpolation methods.
+
+\subsection{Ethical and Reproducibility Considerations}
+
+All datasets, preprocessing steps, and implementation details will be documented and released to ensure full reproducibility.
+
+\subsection{Expected Outcomes}
+
+The methodology is designed to:
+\begin{itemize}
+\item Quantify the impact of missing data on Hotelling’s $T^2$ performance,
+\item Identify interpolation and reference strategies that stabilize \ac{ARL} behavior,
+\item Provide practical guidance for deploying classical control charts under incomplete data,
+\item Support robust monitoring of environmental and \ac{IoT} sensor networks.
+\end{itemize}

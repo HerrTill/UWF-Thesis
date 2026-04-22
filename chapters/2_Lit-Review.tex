@@ -1,0 +1,87 @@
+\clearpage
+\section{Literature Review}
+
+\subsection{Introduction}
+
+This chapter reviews anomaly detection, multivariate process monitoring, and IoT data challenges relevant to this thesis including multivariate statistical process monitoring (\ac{MSPM}), anomaly detection in \ac{IoT} and environmental sensor data, and run length analysis for evaluating detection performance. The chapter is organized into four major strands: (1) foundations of anomaly detection, (2) Hotelling’s $T^2$ and its theoretical properties, (3) challenges arising in \ac{IoT} and environmental data, and (4) extensions and alternatives designed to improve robustness under such conditions. Collectively, these discussions motivate the central focus of this thesis: evaluating how far classical Hotelling’s $T^2$ can be made practically robust through preprocessing and reference design, without modifying the monitoring statistic itself.
+
+\subsection{Foundations of Anomaly Detection}
+
+Anomaly detection has been extensively studied across domains including industrial process control, network security, and \ac{IoT} systems. Prior work categorizes anomaly detection methods into statistical, proximity-based, clustering-based, and machine learning approaches \cite{Chandola2009} \cite{Ahmed2016}. Among statistical methods, control charts and change detection techniques remain central due to their interpretability and formal performance guarantees.
+Anomaly detection in IoT systems has also been studied in edge computing contexts, where real-time detection under resource constraints is critical \cite{Mishra2021}
+
+Traditional approaches include model-based methods \cite{Venkatasubramanian2003}, , which rely on explicit process representations, and data-driven methods such as \ac{PCA} \cite{Jolliffe2002, Gray2017} and latent variable models \cite{Kourti2005}, which reduce dimensionality and monitor deviations in projected or residual spaces.
+
+
+Recent work has increasingly focused on anomaly detection in \ac{IoT} systems, where unsupervised methods are favored due to limited availability of labeled fault data \cite{Belay2023}. Machine learning–based approaches have demonstrated strong empirical performance \cite{Kim2025}, particularly for complex or high-dimensional data. However, such methods typically lack formal Average Run Length (\ac{ARL}) guarantees, which limits their suitability for applications where false-alarm control and interpretability are critical. Consequently, classical statistical monitoring frameworks continue to play an important role, particularly when deployment simplicity and transparency are prioritized.
+
+\subsection{Hotelling’s $T^2$ and Run Length Theory}
+
+Hotelling’s $T^2$ statistic is the classical multivariate extension of the univariate Shewhart chart \cite{Sauter1992}. It measures the squared Mahalanobis distance between an observation and the in-control (\ac{IC}) mean vector, scaled by the \ac{IC} covariance matrix. This formulation provides a single interpretable metric that integrates information across multiple correlated variables. Recent work has applied Hotelling’s T² specifically to IoT anomaly detection \cite{Fontenot2025}, demonstrating its continued relevance in sensor-based monitoring.
+
+The performance of monitoring charts is commonly assessed using the concept of Average Run Length (\ac{ARL}), defined as the expected number of samples observed before an alarm is raised. \ac{ARL}$_0$ measures false-alarm behavior under in-control conditions, while \ac{ARL}$_1$ reflects detection speed following a process shift. The \ac{ARL} framework provides a principled basis for comparing monitoring strategies and tuning control limits.
+
+Despite its theoretical appeal, the performance of Hotelling’s $T^2$ is highly sensitive to violations of its underlying assumptions. The performance of Hotelling’s $T^2$ depends on several assumptions, including multivariate normality and independence, reliable estimation of the in-control mean and covariance, and appropriate parameter selection. While these assumptions are often approximately satisfied in controlled industrial settings \cite{Kourti2005}, their validity in \ac{IoT} and environmental monitoring remains uncertain, motivating the need for empirical evaluation under realistic data conditions.
+
+
+\subsection{Challenges in IoT and Environmental Monitoring}
+
+IoT and environmental datasets exhibit several characteristics that complicate the direct application of classical control charts. 
+First, environmental variables such as temperature, humidity, and air pollution concentrations display strong temporal dependence and seasonal cycles \cite{Wilks2011}. 
+This autocorrelation inflates the variance of monitoring statistics, often leading to underestimated control limits and an increased rate of false alarms when classical assumptions are applied.
+
+In addition, missing data and irregular sampling are common in \ac{IoT} systems due to sensor failures, communication losses, or energy-efficient sampling protocols. 
+While advanced imputation techniques have been proposed (e.g., \cite{Yoon2019}), missingness directly affects covariance estimation and reference stability, thereby undermining \ac{ARL} guarantees even when imputation is used. 
+Prior work has shown that reconstruction methods can significantly alter covariance estimates and \ac{ARL} behavior in Hotelling’s T\textsuperscript{2} monitoring \cite{Wilson2025}.
+
+Another important challenge is the presence of non-Gaussian and heavy-tailed distributions. 
+IoT sensor measurements often exhibit skewness, heavy tails, or outliers due to environmental variability and measurement noise \cite{Chandola2009}. 
+These departures from normality distort the distribution of the T\textsuperscript{2} statistic and lead to miscalibrated thresholds.
+
+Finally, environmental monitoring systems are characterized by substantial data diversity and heterogeneity. 
+Deployments vary widely in geographic location, sensor technology, and temporal resolution \cite{Ben2024}, raising concerns about the generalizability of fixed monitoring configurations across datasets.
+
+These challenges motivate the need for robust monitoring strategies. 
+However, many existing approaches address these issues by modifying the monitoring statistic itself, which lies outside the scope of this thesis.
+
+
+\subsection{Extensions and Alternatives to Classical Control Charts}
+
+\subsubsection{Latent Variable and \ac{PCA}-Based Methods}
+\ac{PCA} and related latent-variable methods are widely used in MSPC \cite{Jolliffe2002, Kourti2005}. By projecting high-dimensional data onto a lower-dimensional subspace, PCA reduces noise and multicollinearity while enabling fault detection through monitoring of score and residual statistics. Extensions such as dynamic, probabilistic, and kernel PCA have been developed to address autocorrelation and nonlinearity.
+
+While these methods demonstrate improved robustness under certain conditions, they require changes to the monitoring framework itself, including model estimation, component selection, and reinterpretation of control statistics. Moreover, they remain sensitive to missing data and non-stationarity. As such, although PCA-based monitoring is highly relevant, it represents a methodological shift beyond the classical T\textsuperscript{2} chart considered in this thesis.
+
+\subsubsection{Density- and Distance-Based Anomaly Detection}
+Non-parametric approaches such as the Local Outlier Factor (\ac{LOF}) \cite{Breunig2000} and related distance-based methods detect anomalies by comparing local density estimates. These approaches are flexible and effective in heterogeneous or high-dimensional settings.
+
+However, they are computationally intensive, require careful hyperparameter tuning, and lack formal \ac{ARL} guarantees. Consequently, their integration into real-time statistical monitoring frameworks—particularly those requiring explicit false-alarm control—remains limited. While powerful, these methods represent an alternative paradigm rather than an extension of classical SPC.
+
+\subsubsection{Wavelet- and Transformation-Based Monitoring}
+Wavelet-based monitoring techniques decompose signals into time–frequency components, enabling detection of non-stationary and multi-scale anomalies \cite{Cohen2020}. Such approaches are particularly effective for dynamic processes but require specialized parameter choices and computational resources.
+
+Although wavelet methods demonstrate strong empirical performance, their statistical properties are less standardized, complicating the derivation of \ac{ARL}-based performance guarantees. Their adoption therefore typically entails replacing classical monitoring statistics, placing them outside the scope of the present thesis.
+
+\subsubsection{Robust and Dynamic Monitoring Frameworks}
+Recent frameworks explicitly target robustness to non-normality, autocorrelation, and non-stationarity. \cite{Xie2023} proposed EWMA-P and EWMA-Q charts that transform multivariate observations into approximately normal statistics, achieving superior robustness in simulations and case studies. Similarly, the Nonparametric Dynamic Pollution Monitoring (\ac{NDPM}) framework addresses serial correlation and time-varying distributions through kernel-based baselines and rank-based statistics.
+
+While these methods demonstrate clear advantages in complex environments, they require adopting new monitoring statistics and computational pipelines. Their strengths underscore the limitations of classical T\textsuperscript{2}, but their implementation demands may hinder adoption in settings where simplicity, transparency, and legacy compatibility are priorities. The present thesis therefore views these approaches as complementary rather than competing.
+These approaches demonstrate what is possible when the monitoring statistic is replaced; this thesis instead investigates how much robustness can be achieved without such replacement.
+
+
+\subsection{Research Gap}
+
+The reviewed literature highlights two parallel trends. On the one hand, classical methods such as Hotelling’s $T^2$ remain widely used due to their interpretability, strong statistical foundation, and integration into industrial practice. On the other hand, robust and nonparametric methods offer improved performance under real-world conditions but require changes to the monitoring statistic itself and introduce additional complexity.
+
+\textit{What is missing is a systematic evaluation of how far classical Hotelling’s $T^2$ can be pushed toward robustness through preprocessing and reference design alone.}
+
+Specifically, the literature lacks:
+(1) Empirical \ac{ARL}-based evaluation of T\textsuperscript{2} under missing data and imperfect reference construction; (2) Sensitivity analysis of reference design and configuration choices in realistic \ac{IoT} settings; and (3) Practical guidance for determining when T\textsuperscript{2} remains suitable without abandoning the classical framework.
+
+This thesis addresses this gap by focusing explicitly on data-level and reference-level adaptations, rather than methodological replacement, thereby bridging the divide between classical SPC theory and modern \ac{IoT} monitoring challenges.
+
+\subsubsection{Strengths and Weaknesses}
+
+Recent advances in robust and dynamic monitoring represent an important evolution in process monitoring, offering flexibility and resilience under non-stationary and high-dimensional conditions. However, these methods often require substantial computational resources, specialized expertise, and reduced interpretability.
+
+By contrast, classical control charts provide transparency and formal performance guarantees but are vulnerable to realistic data imperfections. The contribution of this thesis lies in clarifying the boundary between these paradigms by identifying conditions under which classical Hotelling’s $T^2$, when paired with appropriate preprocessing and reference design, remains a viable and operationally attractive monitoring tool.

@@ -1,0 +1,152 @@
+\clearpage
+\section{Discussion}
+
+\subsection{Overview}
+
+This chapter interprets the empirical findings presented in Chapter 4, contextualizing them within the broader literature on multivariate \ac{SPC} and \ac{IoT} monitoring. The discussion is structured around the research questions posed in Chapter 1, examining how missing data affects Hotelling's $T^2$ performance, the effectiveness of adaptation strategies, and the implications for practical deployment in environmental sensor networks.
+
+The discussion is structured around the research questions posed in Chapter~1. It begins by examining the impact of missing data on statistical validity and \ac{ARL} performance (RQ1), followed by an evaluation of reference window extension and weighting schemes (RQ2). The role of interpolation and imputation methods is then assessed (RQ3), before identifying dataset characteristics that determine the practical suitability of Hotelling’s $T^2$ under missing data (RQ4). The chapter concludes with a comparison to theoretical expectations and prior literature, followed by a discussion of limitations and implications for practice and future research.
+
+Particular emphasis is placed on the role of covariance stability, as shaped by inter-variable correlation structure, in mediating the robustness of Hotelling’s $T^2$ under missing data.
+All interpretations account for statistical uncertainty in the estimated performance metrics, as discussed in Chapter~3, where uncertainty is quantified via standard errors and associated confidence intervals. Observed differences are therefore interpreted relative to this estimation uncertainty, ensuring that conclusions reflect structural effects rather than simulation variability.
+
+\subsection{Interpretation of Key Findings}
+
+This section interprets the empirical findings presented in Chapter 4 through the lens of the research questions defined in Section 1.8. Rather than reiterating numerical results, the discussion focuses on the mechanisms driving observed behavior and the implications for the practical use of Hotelling’s $T^2$ in IoT and environmental monitoring contexts.
+Across all findings, differences in dataset behavior are interpreted through the lens of covariance preservation rather than missingness rate alone.
+
+
+\subsubsection{RQ1: Effect of Missing Data Across Datasets}
+
+How does missing data affect the run-length behavior (\ac{ARL}$_0$ and \ac{ARL}$_1$) of Hotelling’s $T^2$ across different IoT and environmental sensor datasets?
+
+Across all datasets examined, missing data primarily affects Hotelling’s $T^2$ through increased instability of run-length distributions rather than through a uniform degradation of mean detection performance. Even when mean \ac{ARL}$_0$ values remain close to nominal targets, missing observations introduce variability in covariance estimation that manifests as heavy-tailed and highly dispersed run-length behavior. Importantly, the stability of mean \ac{ARL}$_0$ values falls within the range of statistical uncertainty as quantified by the standard error of the estimated \ac{ARL}$_0$, indicating that observed differences are not statistically significant but reflect stochastic variability. This indicates that missingness primarily affects variability rather than systematically biasing average performance. This effect is amplified in datasets exhibiting strong temporal dependence or latent nonstationarity, where successive monitoring statistics are no longer approximately independent.
+
+The cross-dataset comparison reveals that the sensitivity of T² to missing data is not uniform but depends on the structural characteristics of the underlying process. In particular, datasets with stronger and more coherent inter-variable correlation exhibit more stable covariance estimation and correspondingly lower run-length dispersion, even under comparable levels of missingness. Environmental datasets with relatively smooth seasonal dynamics tolerate moderate levels of missingness more gracefully than processes characterized by regime switching or evolving variance structures. These findings indicate that missing data does not merely reduce information content, but fundamentally perturbs the statistical assumptions underpinning the T² chart, particularly those related to stable covariance estimation.
+
+From a practical perspective, evaluating robustness based solely on average \ac{ARL} metrics—without accounting for their associated uncertainty—can be misleading. Stable monitoring performance requires not only appropriate mean behavior but also controlled dispersion of run-length distributions, especially in applications where false alarms carry significant operational cost.
+
+\subsubsection{RQ2: Impact of Reference Data Quality}
+
+How does missing or incomplete reference data influence false-alarm stability (\ac{ARL}$_0$) and detection performance (\ac{ARL}$_1$) of Hotelling’s $T^2$?
+
+The results demonstrate that degradation of the reference dataset exerts a disproportionately large influence on monitoring robustness relative to missingness in the online monitoring stream. Because Hotelling’s $T^2$ relies on accurate estimation of the in-control mean vector and covariance matrix, any instability in the reference window propagates directly into the monitoring statistic and its control limits. Missing observations in the reference data reduce effective sample size and increase estimation variance, leading to inflated uncertainty in the inverse covariance matrix and, consequently, unstable signaling behavior. These effects exceed the expected statistical uncertainty of the simulation estimates, as defined by the standard error of the run-length metrics, indicating that the observed instability is statistically meaningful rather than attributable to sampling variability.
+
+
+Importantly, the adverse effects of reference degradation do not persist when imputation-based reconstruction is applied. While interpolation may restore continuity in marginal series without fully recovering the true joint dependence structure required for reliable multivariate monitoring, charts calibrated on reconstructed reference data remain stable and maintain false-alarm rates close to their nominal \ac{ARL}$_0$ targets.
+
+These findings underscore that robustness in Hotelling’s $T^2$ monitoring is governed primarily by the quality and representativeness of the reference dataset. Ensuring reference stability—through careful selection, extension, or updating of a representative covariance structure—emerges as a more effective robustness strategy.
+
+\subsubsection{RQ3: Role of Imputation-Based Reconstruction}
+
+To what extent do imputation-based reconstruction strategies stabilize or distort the run-length properties of Hotelling’s $T^2$ under increasing levels of missing data?
+
+Imputation-based reconstruction plays an ambivalent role in the robustness of Hotelling’s $T^2$. On the one hand, commonly used methods such as linear interpolation and cubic splines preserve mean-shift detectability under moderate missingness by maintaining continuity in marginal trajectories. This explains the relative stability observed in minimal detectable shift factors across interpolation strategies and missingness levels. This apparent stability remains within statistical uncertainty bounds, indicating that interpolation does not significantly alter mean detection sensitivity. In this context, “no significant change” refers to differences that remain within the confidence bounds implied by the standard error of the estimated detection metrics.
+
+On the other hand, interpolation implicitly imposes smoothness assumptions that alter the temporal and cross-variable dependence structure of the data. Carry-forward methods suppress short-term variability, while spline-based approaches may introduce artificial curvature or overshoot. These distortions do not significantly affect mean detection performance beyond statistical uncertainty, but they increase run-length dispersion and reduce reliability. Such effects are amplified in datasets with weak baseline correlation, where interpolation-induced smoothing further obscures already fragile dependence structures.
+
+Consequently, interpolation should not be interpreted as a corrective mechanism that restores the statistical properties required for valid T² monitoring. Rather, it functions as a modeling assumption that trades one form of uncertainty (missingness) for another (structural distortion). Interpolation may be acceptable as a pragmatic stopgap under low to moderate missingness, but it cannot compensate for fundamental deficiencies in reference stability or structural nonstationarity.
+
+\subsubsection{RQ4: Practical Suitability of Hotelling’s $T^2$ Under Missing Data}
+
+Based on empirical run-length behavior, what characteristics distinguish datasets for which Hotelling’s $T^2$ remains practically usable under missing data from those for which it does not?
+
+The findings suggest that the practical suitability of Hotelling’s $T^2$ under missing data depends less on the absolute level of missingness than on the stability and coherence of the underlying covariance structure.  Datasets characterized by relatively stationary dependence patterns and dominant seasonal dynamics remain amenable to T² monitoring when paired with robust reference construction strategies, such as seasonal reference extension. In these cases, missing data introduces manageable degradation that can be partially mitigated through careful preprocessing. In these cases, observed deviations in mean \ac{ARL}$_0$ remain within statistical uncertainty bounds defined by the standard error of the estimates, indicating that mean performance is not significantly affected.
+
+
+In contrast, datasets exhibiting strong nonstationarity, regime switching, or time-varying variance structures challenge the foundational assumptions of Hotelling’s $T^2$. In such settings, interpolation smooths marginal behavior without capturing evolving multivariate relationships, leading to persistently unstable false-alarm behavior regardless of missingness level. These failures are not incidental but diagnostic of fundamental violations of the constant-covariance assumption underlying Hotelling’s $T^2$.
+
+Taken together, these results support a qualitative suitability criterion: Hotelling’s $T^2$ remains practically usable under missing data when the reference covariance structure is stable and representative of ongoing process dynamics. When this condition is violated, alternative monitoring frameworks that explicitly model nonstationarity or dynamic dependence should be preferred.
+
+\subsubsection{Synthesis}
+
+Across all research questions, a consistent conclusion emerges: the robustness of Hotelling’s $T^2$ under missing data is governed primarily by the preservation of a stable and representative covariance structure. Missing data, interpolation, and reference degradation all exert their influence through this mechanism. While preprocessing and reconstruction can mitigate superficial data loss, they cannot compensate for weak correlation structure or structural nonstationarity. These findings clarify both the limits and the continued relevance of Hotelling’s $T^2$, demonstrating that robustness must be assessed through both mean performance and its associated uncertainty.
+Across all findings, statistical significance is assessed relative to estimation uncertainty, confirming that variability effects dominate over systematic shifts in mean performance.
+
+\subsection{Cross-Dataset Generalizability}
+
+\subsubsection{Consistency of Findings Across Datasets}
+
+Across datasets, adaptation method effectiveness exhibited moderate consistency across the four datasets.
+
+Across datasets, reference window extension strategies—particularly those incorporating seasonal structure—consistently outperform interpolation-only approaches in terms of false-alarm stability. However, the magnitude of improvement varies across datasets and is primarily driven by differences in dimensionality, temporal dependence, seasonality strength, and covariance stability. Hybrid approaches combining reference extension with interpolation generally exhibit more stable behavior than single-method adaptations, although their effectiveness remains dependent on dataset-specific characteristics.
+
+Taken together, these patterns indicate that generalizability is constrained less by domain and more by covariance stability and temporal structure. Observed differences across datasets consistently exceed statistical uncertainty, confirming that these effects are driven by structural properties rather than simulation variability.
+
+
+\subsubsection{Dataset Characteristics as Moderating Factors}
+
+Analysis of dataset sensitivity indicates that the following characteristics moderate adaptation effectiveness:
+
+\paragraph{Dimensionality} Datasets with higher dimensionality exhibited greater sensitivity to missingness, reflecting increased instability in covariance estimation and matrix inversion as the effective sample size decreased.
+
+
+\paragraph{Autocorrelation} Datasets with strong autocorrelation exhibited improved performance under imputation-based reconstruction, as temporal smoothness assumptions better preserved the evolving multivariate dependence structure required for stable Hotelling’s $T^2$ monitoring.
+
+\paragraph{Seasonality Strength} The effectiveness of seasonal reference extension increased with the strength and regularity of seasonal patterns in the data, as recurring structure improved covariance representativeness and reduced estimation variance.
+
+\paragraph{Correlation Structure}
+Datasets with stronger inter-variable correlation exhibited greater robustness to missingness, reflecting more stable covariance estimation and reduced sensitivity to effective sample size reductions.
+
+
+\subsection{Comparison with Theoretical Expectations}
+
+\subsubsection{Alignment with Classical SPC Theory}
+
+Under complete data conditions, observed \ac{ARL}$_0$ values closely matched theoretical predictions assuming multivariate normality. This validates the applicability of Hotelling's $T^2$ to environmental data. Observed deviations from theoretical \ac{ARL}$_0$ values are small relative to statistical uncertainty under near-complete data, but increase substantially under missingness.
+
+These deviations are primarily attributable to autocorrelation, which inflates false-alarm rates \cite{Venkatasubramanian2003}, and to limited sample sizes in the reference windows, which increase estimation uncertainty.
+
+These assumptions implicitly rely on stable covariance structure, explaining the sensitivity observed under weak correlation and nonstationarity.
+
+
+\subsubsection{Relationship to Modern Robust Methods}
+
+Recent advances by \cite{Xie2024} (EWMA-Q) and \cite{Xie2023} (\ac{NDPM}) provide distribution-free alternatives that complement classical $T^2$ under conditions of pronounced nonstationarity, high missingness, or unstable covariance structure.
+
+
+The findings suggest that for missingness levels below approximately 20\%, classical $T^2$ remains competitive when supported by appropriate reference construction and moderate interpolation. Beyond moderate missingness, transition to robust or adaptive monitoring frameworks becomes advisable, particularly when reference stability cannot be maintained. Nevertheless, the computational simplicity and interpretability of $T^2$ justify its continued use in low- to moderate-missingness environmental monitoring contexts where reference data remain stable.
+
+
+\subsection{Limitations and Threats to Validity}
+
+\subsubsection{Internal Validity}
+
+\subsubsection{Missing Data Mechanisms}
+
+This study imposed \ac{MCAR} missingness, which may not reflect all real-world patterns. In practice, missing data often exhibit more complex patterns. Sensor outages may cluster temporally (\ac{MAR}), missingness may correlate with extreme values (\ac{MNAR}), and network failures can affect multiple sensors simultaneously.
+
+Future work should explicitly model structured and outcome-dependent missingness processes.
+
+Evaluating MNAR mechanisms would require explicit modeling of missingness processes and lies beyond the scope of this work, but represents a critical direction for future research.
+
+\subsubsection{Sampling Variability}
+
+Choice of random seed for missingness simulation may introduce variability. While multiple runs were averaged, residual sampling variability may still affect precision, particularly for heavy-tailed run-length distributions where convergence is slower.
+
+While confidence intervals were not explicitly reported in all result tables, the magnitude of observed effects relative to the standard error of the estimates suggests that the main conclusions are robust to simulation noise.
+
+\subsubsection{Monitoring Window Selection Implementation}
+
+Choice of monitoring window size and update frequency may influence detection performance. Fixed window sizes were used for consistency, but adaptive windowing could yield different results. The window selection was constrained by data availability within the datasets that lacked certain periods of high-frequency data.
+
+
+\subsubsection{External Validity}
+
+\subsubsection{Dataset Representativeness}
+
+Four datasets provide moderate coverage of environmental monitoring scenarios, but may not generalize to industrial process monitoring, high-frequency sensor networks ($>$1 Hz), or extremely high-dimensional systems ($>$20 variables).
+
+\subsubsection{Shift Detection Evaluation}
+
+Minimal detectable shift analysis assumed specific shift types: mean shift. Results may differ for gradual drifts, transient anomalies, multimodal shifts.
+
+\subsubsection{Construct Validity}
+
+\ac{ARL} metrics assume stationarity and ergodicity, which may be violated in long-running deployments subject to sensor drift, environmental regime changes.
+
+\subsubsection{Dataset Completeness Limitations}
+
+All datasets used were pre-processed to remove existing missing data, which may not reflect real-world sensor network conditions where missingness patterns are complex and non-random. This could limit the ecological validity of the findings.
+Additionally the datasets lacked high frequency data for certain periods which limited the ability to simulate high frequency missingness patterns. 
+

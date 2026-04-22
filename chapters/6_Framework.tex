@@ -1,0 +1,57 @@
+\clearpage
+\section{Practical Implications}
+
+This chapter translates the empirical findings of the thesis into actionable design guidance for real-world deployment. While previous chapters focused on statistical behavior and theoretical robustness, the emphasis here shifts toward practicability: how Hotelling’s $T^2$ can be effectively implemented, maintained, and evaluated in operational \ac{IoT} monitoring systems under imperfect data conditions.
+
+The recommendations presented are derived directly from the observed relationships between missing data, covariance stability, and run-length behavior. Rather than proposing new methods, this chapter provides structured guidance on when classical $T^2$ is appropriate, how it should be configured, and when alternative approaches should be considered.
+
+\subsubsection{For Practitioners}
+
+The following guidelines are intended for practitioners deploying multivariate monitoring systems in real-world \ac{IoT} environments, where missing data, nonstationarity, and resource constraints are common. The recommendations emphasize robustness, interpretability, and operational feasibility rather than theoretical optimality.
+
+\subsubsection{Deployment Guidelines}
+
+Deployment of Hotelling’s $T^2$ under missing data conditions should be structured across three stages: pre-deployment assessment, implementation design, and ongoing monitoring and maintenance.
+
+\begin{enumerate}
+	\item \textbf{Pre-deployment assessment:}
+	\begin{itemize}
+		\item Characterize expected missingness patterns, including frequency, clustering, and potential correlation with extreme values.
+		\item Evaluate dataset characteristics against suitability criteria: assess covariance stability, strength of inter-variable correlations, seasonality, and autocorrelation.
+		\item Validate normality assumptions and approximate independence of monitoring statistics, noting that strong temporal dependence or nonstationarity may compromise performance.
+	\end{itemize}
+    These steps are critical, as the results of this thesis show that monitoring performance is governed primarily by covariance stability rather than missingness level alone.
+	
+	\item \textbf{Implementation recommendations:}
+	\begin{itemize}
+		\item Apply interpolation cautiously: use linear or cubic spline interpolation for moderate missingness where marginal continuity is sufficient, but avoid over-reliance in weakly correlated or nonstationary datasets.
+		\item Prefer reference window extension strategies, particularly seasonal reference extension when strong seasonal patterns exist, to stabilize covariance estimation.
+		\item Implement periodic re-estimation of reference statistics to maintain a representative covariance structure as process dynamics evolve.
+		\item Consider hybrid approaches combining reference extension and interpolation for improved false-alarm stability, while monitoring dataset-specific characteristics.
+	\end{itemize}
+    Consistent with the empirical findings, reference construction strategies have a greater impact on robustness than interpolation alone, and should therefore be prioritized in system design.
+	
+	\item \textbf{Monitoring and maintenance:}
+	\begin{itemize}
+		\item Continuously track \ac{ARL}$_0$ and run-length distribution dispersion against target values, not just mean performance.
+		\item Flag datasets with unstable covariance structure or weak inter-variable correlation for alternative monitoring methods.
+		\item Combine $T^2$ with complementary robust or adaptive methods (e.g., EWMA-Q or NDPM) when missingness exceeds approximately 20\% or reference stability cannot be maintained.
+	\end{itemize}
+    Ongoing evaluation of variability is essential, as stable mean \ac{ARL} values may mask deteriorating reliability due to increased run-length dispersion.
+\end{enumerate}
+
+\subsubsection{Cost-Benefit Considerations}
+
+From a system design perspective, the choice of monitoring method involves a trade-off between computational simplicity, interpretability, and robustness under imperfect data.
+
+Hotelling's $T^2$ remains competitive under low-to-moderate missingness, particularly when covariance stability is preserved. Its advantages include:
+
+\begin{itemize}
+	\item Computational efficiency and real-time applicability in resource-constrained IoT environments.
+	\item Interpretability and transparency, facilitating regulatory compliance and actionable decision-making.
+	\item Suitability in infrastructures where implementing advanced machine learning or robust adaptive frameworks is impractical.
+\end{itemize}
+
+Performance trade-offs remain manageable when the reference dataset is representative and covariance stability is maintained. However, when these conditions are violated—particularly under high missingness or nonstationarity—the reliability of $T^2$ deteriorates rapidly, and the use of robust or adaptive monitoring frameworks becomes necessary.
+
+Overall, these guidelines reinforce the central conclusion of this thesis: effective deployment of Hotelling’s $T^2$ under missing data depends less on correcting missing observations and more on maintaining a stable and representative covariance structure. Practical robustness is therefore achieved through careful reference design, continuous monitoring of variability, and informed method selection.

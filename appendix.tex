@@ -1,0 +1,1950 @@
+\appendix
+\captionsetup{list=no}
+
+\chapter{Definition of iterations}
+\begin{table}[!htbp]
+\centering
+\caption{Comparison of Number of iterations on DFW dataset}
+\begin{tabular}{lccc}
+\toprule
+Number of Runs & 500 & 1000  & 10000 \\
+Average Run Length & 656.208 & 647.166 & 648.7816 \\
+ARL Standard deviation & 147.0588227 & 147.6277087 & 147.6697489 \\
+relative humidity factor mean & 3.97834 & 3.978538 & 3.979847 \\
+relative humidity factor sd & 0.04360334 & 0.04504859 & 0.04365471 \\
+station level pressure factor mean & 5.128857 & 5.135928 & 5.135491 \\
+station level pressure factor sd & 0.04266235 & 0.04148334 & 0.04143443 \\
+temperature factor mean & 3.422016 & 3.424553 & 3.424741 \\
+temperature factor sd & 0.03372063 & 0.0335356 & 0.03405425 \\
+wind speed factor mean & 5.923936 & 5.925634 & 5.926827 \\
+wind speed factor sd & 0.05439861 & 0.05426472 & 0.05345255 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{Tables for factor detection for PNS dataset}
+% PNS drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (PNS).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9024199 & 0.0389189 &  &  & 0.9024199 & 0.0389189 & 0.9036914 & 0.03754379 & 0.9042275 & 0.03853153 & 0.9026172 & 0.03847128 \\
+relative humidity & 1.0982461 & 0.03508391 &  &  & 1.0982461 & 0.03508391 & 1.099458 & 0.03459863 & 1.1001992 & 0.03421246 & 1.0964678 & 0.03480853 \\
+temperature & 0.7265938 & 0.01842758 &  &  & 0.7265938 & 0.01842758 & 0.7270977 & 0.0175918 & 0.7271543 & 0.01817727 & 0.7254512 & 0.01818226 \\
+wet bulb temperature & 0.6360264 & 0.03216921 &  &  & 0.6360264 & 0.03216921 & 0.637375 & 0.03095878 & 0.6370859 & 0.03134408 & 0.6343018 & 0.03258845 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (PNS).}
+\label{fig:PNS_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9024199) +- (0,0.0389189)
+(relative humidity,1.0982461) +- (0,0.03508391)
+(temperature,0.7265938) +- (0,0.01842758)
+(wet bulb temperature,0.6360264) +- (0,0.03216921)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9024199) +- (0,0.0389189)
+(relative humidity,1.0982461) +- (0,0.03508391)
+(temperature,0.7265938) +- (0,0.01842758)
+(wet bulb temperature,0.6360264) +- (0,0.03216921)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9036914) +- (0,0.03754379)
+(relative humidity,1.099458) +- (0,0.03459863)
+(temperature,0.7270977) +- (0,0.0175918)
+(wet bulb temperature,0.637375) +- (0,0.03095878)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9042275) +- (0,0.03853153)
+(relative humidity,1.1001992) +- (0,0.03421246)
+(temperature,0.7271543) +- (0,0.01817727)
+(wet bulb temperature,0.6370859) +- (0,0.03134408)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9026172) +- (0,0.03847128)
+(relative humidity,1.0964678) +- (0,0.03480853)
+(temperature,0.7254512) +- (0,0.01818226)
+(wet bulb temperature,0.6343018) +- (0,0.03258845)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS drop10
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (PNS).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9024199 & 0.0389189 & 0.9035449 & 0.03947883 & 0.9006182 & 0.03822277 & 0.9036514 & 0.03748649 & 0.9007246 & 0.03914525 & 0.9010947 & 0.03846015 \\
+relative humidity & 1.0982461 & 0.03508391 & 1.0995381 & 0.03272502 & 1.0970215 & 0.03486093 & 1.0973555 & 0.03581421 & 1.0980977 & 0.03537715 & 1.0977031 & 0.03537813 \\
+temperature & 0.7265938 & 0.01842758 & 0.7264668 & 0.01782647 & 0.7260811 & 0.0176252 & 0.7257539 & 0.01755151 & 0.7257471 & 0.01773943 & 0.7250068 & 0.01763558 \\
+wet bulb temperature & 0.6360264 & 0.03216921 & 0.6356543 & 0.03118701 & 0.636876 & 0.03127704 & 0.6347773 & 0.03295163 & 0.6352178 & 0.03132946 & 0.634875 & 0.0327871 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (PNS).}
+\label{fig:PNS_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9024199) +- (0,0.0389189)
+(relative humidity,1.0982461) +- (0,0.03508391)
+(temperature,0.7265938) +- (0,0.01842758)
+(wet bulb temperature,0.6360264) +- (0,0.03216921)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9035449) +- (0,0.03947883)
+(relative humidity,1.0995381) +- (0,0.03272502)
+(temperature,0.7264668) +- (0,0.01782647)
+(wet bulb temperature,0.6356543) +- (0,0.03118701)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9006182) +- (0,0.03822277)
+(relative humidity,1.0970215) +- (0,0.03486093)
+(temperature,0.7260811) +- (0,0.0176252)
+(wet bulb temperature,0.636876) +- (0,0.03127704)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9036514) +- (0,0.03748649)
+(relative humidity,1.0973555) +- (0,0.03581421)
+(temperature,0.7257539) +- (0,0.01755151)
+(wet bulb temperature,0.6347773) +- (0,0.03295163)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9007246) +- (0,0.03914525)
+(relative humidity,1.0980977) +- (0,0.03537715)
+(temperature,0.7257471) +- (0,0.01773943)
+(wet bulb temperature,0.6352178) +- (0,0.03132946)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9010947) +- (0,0.03846015)
+(relative humidity,1.0977031) +- (0,0.03537813)
+(temperature,0.7250068) +- (0,0.01763558)
+(wet bulb temperature,0.634875) +- (0,0.0327871)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS drop25
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (PNS).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9024199 & 0.0389189 & 0.9076953 & 0.03829504 & 0.9072305 & 0.03802324 & 0.9112842 & 0.03883786 & 0.9070742 & 0.03814308 & 0.907918 & 0.03825413 \\
+relative humidity & 1.0982461 & 0.03508391 & 1.1032578 & 0.03587474 & 1.103418 & 0.03580926 & 1.1053252 & 0.03589077 & 1.1059346 & 0.0361843 & 1.1048379 & 0.03676155 \\
+temperature & 0.7265938 & 0.01842758 & 0.7272734 & 0.0189484 & 0.7279746 & 0.01892251 & 0.7290273 & 0.01815416 & 0.7281729 & 0.01863495 & 0.7284092 & 0.01923886 \\
+wet bulb temperature & 0.6360264 & 0.03216921 & 0.6394346 & 0.03138913 & 0.6399971 & 0.03270398 & 0.6441338 & 0.03262665 & 0.6411641 & 0.03357582 & 0.6413506 & 0.03269738 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (PNS).}
+\label{fig:PNS_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9024199) +- (0,0.0389189)
+(relative humidity,1.0982461) +- (0,0.03508391)
+(temperature,0.7265938) +- (0,0.01842758)
+(wet bulb temperature,0.6360264) +- (0,0.03216921)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9076953) +- (0,0.03829504)
+(relative humidity,1.1032578) +- (0,0.03587474)
+(temperature,0.7272734) +- (0,0.0189484)
+(wet bulb temperature,0.6394346) +- (0,0.03138913)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9072305) +- (0,0.03802324)
+(relative humidity,1.103418) +- (0,0.03580926)
+(temperature,0.7279746) +- (0,0.01892251)
+(wet bulb temperature,0.6399971) +- (0,0.03270398)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9112842) +- (0,0.03883786)
+(relative humidity,1.1053252) +- (0,0.03589077)
+(temperature,0.7290273) +- (0,0.01815416)
+(wet bulb temperature,0.6441338) +- (0,0.03262665)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9070742) +- (0,0.03814308)
+(relative humidity,1.1059346) +- (0,0.0361843)
+(temperature,0.7281729) +- (0,0.01863495)
+(wet bulb temperature,0.6411641) +- (0,0.03357582)
+};
+
+\addplot coordinates {
+(dew point temperature,0.907918) +- (0,0.03825413)
+(relative humidity,1.1048379) +- (0,0.03676155)
+(temperature,0.7284092) +- (0,0.01923886)
+(wet bulb temperature,0.6413506) +- (0,0.03269738)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS drop50
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (PNS).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9024199 & 0.0389189 & 0.9105176 & 0.04576553 & 0.9122617 & 0.04350996 & 0.9101807 & 0.04321145 & 0.9105508 & 0.04530957 & 0.9099219 & 0.04407067 \\
+relative humidity & 1.0982461 & 0.03508391 & 1.1002031 & 0.04150854 & 1.1025 & 0.04350211 & 1.1003945 & 0.04221268 & 1.1021631 & 0.04175063 & 1.1030586 & 0.0435493 \\
+temperature & 0.7265938 & 0.01842758 & 0.7283994 & 0.02399592 & 0.7281035 & 0.02361955 & 0.7291172 & 0.02393756 & 0.7298623 & 0.02308202 & 0.7289033 & 0.02362439 \\
+wet bulb temperature & 0.6360264 & 0.03216921 & 0.6379775 & 0.03975092 & 0.6374824 & 0.03974587 & 0.639085 & 0.03904559 & 0.6389111 & 0.03838517 & 0.6359648 & 0.03849443 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (PNS).}
+\label{fig:PNS_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9024199) +- (0,0.0389189)
+(relative humidity,1.0982461) +- (0,0.03508391)
+(temperature,0.7265938) +- (0,0.01842758)
+(wet bulb temperature,0.6360264) +- (0,0.03216921)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9105176) +- (0,0.04576553)
+(relative humidity,1.1002031) +- (0,0.04150854)
+(temperature,0.7283994) +- (0,0.02399592)
+(wet bulb temperature,0.6379775) +- (0,0.03975092)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9122617) +- (0,0.04350996)
+(relative humidity,1.1025) +- (0,0.04350211)
+(temperature,0.7281035) +- (0,0.02361955)
+(wet bulb temperature,0.6374824) +- (0,0.03974587)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9101807) +- (0,0.04321145)
+(relative humidity,1.1003945) +- (0,0.04221268)
+(temperature,0.7291172) +- (0,0.02393756)
+(wet bulb temperature,0.639085) +- (0,0.03904559)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9105508) +- (0,0.04530957)
+(relative humidity,1.1021631) +- (0,0.04175063)
+(temperature,0.7298623) +- (0,0.02308202)
+(wet bulb temperature,0.6389111) +- (0,0.03838517)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9099219) +- (0,0.04407067)
+(relative humidity,1.1030586) +- (0,0.0435493)
+(temperature,0.7289033) +- (0,0.02362439)
+(wet bulb temperature,0.6359648) +- (0,0.03849443)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS extended reference window drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (PNS extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9034922 & 0.04426265 & 0.9019736 & 0.04293162 & 0.9034922 & 0.04426265 & 0.9029805 & 0.04483674 & 0.9012686 & 0.0436133 & 0.9034648 & 0.04694551 \\
+relative humidity & 1.1842793 & 0.02308719 & 1.1837148 & 0.02322923 & 1.1842793 & 0.02308719 & 1.1836025 & 0.02330305 & 1.1825342 & 0.02227672 & 1.1828564 & 0.02307407 \\
+temperature & 0.7665293 & 0.02425388 & 0.767251 & 0.02460697 & 0.7665293 & 0.02425388 & 0.7658428 & 0.02443623 & 0.7636914 & 0.02415589 & 0.7655449 & 0.02494925 \\
+wet bulb temperature & 0.6030645 & 0.02582578 & 0.601793 & 0.02451881 & 0.6030645 & 0.02582578 & 0.6025732 & 0.02491288 & 0.6017168 & 0.02487448 & 0.6014863 & 0.02486636 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (PNS extended reference window).}
+\label{fig:PNS_extended_reference_window_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9034922) +- (0,0.04426265)
+(relative humidity,1.1842793) +- (0,0.02308719)
+(temperature,0.7665293) +- (0,0.02425388)
+(wet bulb temperature,0.6030645) +- (0,0.02582578)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9019736) +- (0,0.04293162)
+(relative humidity,1.1837148) +- (0,0.02322923)
+(temperature,0.767251) +- (0,0.02460697)
+(wet bulb temperature,0.601793) +- (0,0.02451881)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9034922) +- (0,0.04426265)
+(relative humidity,1.1842793) +- (0,0.02308719)
+(temperature,0.7665293) +- (0,0.02425388)
+(wet bulb temperature,0.6030645) +- (0,0.02582578)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9029805) +- (0,0.04483674)
+(relative humidity,1.1836025) +- (0,0.02330305)
+(temperature,0.7658428) +- (0,0.02443623)
+(wet bulb temperature,0.6025732) +- (0,0.02491288)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9012686) +- (0,0.0436133)
+(relative humidity,1.1825342) +- (0,0.02227672)
+(temperature,0.7636914) +- (0,0.02415589)
+(wet bulb temperature,0.6017168) +- (0,0.02487448)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9034648) +- (0,0.04694551)
+(relative humidity,1.1828564) +- (0,0.02307407)
+(temperature,0.7655449) +- (0,0.02494925)
+(wet bulb temperature,0.6014863) +- (0,0.02486636)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS extended reference window drop10
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (PNS extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9034922 & 0.04426265 & 0.9034307 & 0.045984 & 0.9031826 & 0.04496925 & 0.9011289 & 0.04276097 & 0.903207 & 0.04447563 & 0.9023545 & 0.04433512 \\
+relative humidity & 1.1842793 & 0.02308719 & 1.1845332 & 0.02287031 & 1.1851572 & 0.02258645 & 1.1842744 & 0.02331366 & 1.184423 & 0.02401297 & 1.1823076 & 0.02336146 \\
+temperature & 0.7665293 & 0.02425388 & 0.7683818 & 0.02402635 & 0.7659326 & 0.02427723 & 0.767583 & 0.02418112 & 0.766375 & 0.02472488 & 0.7660029 & 0.02463106 \\
+wet bulb temperature & 0.6030645 & 0.02582578 & 0.6013936 & 0.02570564 & 0.600877 & 0.02434433 & 0.6030781 & 0.02615056 & 0.602165 & 0.02590535 & 0.5998496 & 0.02441493 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (PNS extended reference window).}
+\label{fig:PNS_extended_reference_window_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9034922) +- (0,0.04426265)
+(relative humidity,1.1842793) +- (0,0.02308719)
+(temperature,0.7665293) +- (0,0.02425388)
+(wet bulb temperature,0.6030645) +- (0,0.02582578)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9034307) +- (0,0.045984)
+(relative humidity,1.1845332) +- (0,0.02287031)
+(temperature,0.7683818) +- (0,0.02402635)
+(wet bulb temperature,0.6013936) +- (0,0.02570564)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9031826) +- (0,0.04496925)
+(relative humidity,1.1851572) +- (0,0.02258645)
+(temperature,0.7659326) +- (0,0.02427723)
+(wet bulb temperature,0.600877) +- (0,0.02434433)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9011289) +- (0,0.04276097)
+(relative humidity,1.1842744) +- (0,0.02331366)
+(temperature,0.767583) +- (0,0.02418112)
+(wet bulb temperature,0.6030781) +- (0,0.02615056)
+};
+
+\addplot coordinates {
+(dew point temperature,0.903207) +- (0,0.04447563)
+(relative humidity,1.184423) +- (0,0.02401297)
+(temperature,0.766375) +- (0,0.02472488)
+(wet bulb temperature,0.602165) +- (0,0.02590535)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9023545) +- (0,0.04433512)
+(relative humidity,1.1823076) +- (0,0.02336146)
+(temperature,0.7660029) +- (0,0.02463106)
+(wet bulb temperature,0.5998496) +- (0,0.02441493)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS extended reference window drop25
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (PNS extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9034922 & 0.04426265 & 0.9196846 & 0.04894135 & 0.9157764 & 0.04771951 & 0.9191221 & 0.04888249 & 0.919918 & 0.0498944 & 0.9184004 & 0.04900691 \\
+relative humidity & 1.1842793 & 0.02308719 & 1.1878457 & 0.02351721 & 1.1880576 & 0.02325724 & 1.1883896 & 0.0242031 & 1.188207 & 0.02473205 & 1.1880586 & 0.02354983 \\
+temperature & 0.7665293 & 0.02425388 & 0.7710557 & 0.02646976 & 0.7722295 & 0.02506773 & 0.7717744 & 0.02512011 & 0.7725684 & 0.02606424 & 0.7732158 & 0.02498042 \\
+wet bulb temperature & 0.6030645 & 0.02582578 & 0.6098662 & 0.02737369 & 0.6070928 & 0.02735819 & 0.6096592 & 0.02872641 & 0.6090645 & 0.02824798 & 0.6072422 & 0.02871307 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (PNS extended reference window).}
+\label{fig:PNS_extended_reference_window_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9034922) +- (0,0.04426265)
+(relative humidity,1.1842793) +- (0,0.02308719)
+(temperature,0.7665293) +- (0,0.02425388)
+(wet bulb temperature,0.6030645) +- (0,0.02582578)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9196846) +- (0,0.04894135)
+(relative humidity,1.1878457) +- (0,0.02351721)
+(temperature,0.7710557) +- (0,0.02646976)
+(wet bulb temperature,0.6098662) +- (0,0.02737369)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9157764) +- (0,0.04771951)
+(relative humidity,1.1880576) +- (0,0.02325724)
+(temperature,0.7722295) +- (0,0.02506773)
+(wet bulb temperature,0.6070928) +- (0,0.02735819)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9191221) +- (0,0.04888249)
+(relative humidity,1.1883896) +- (0,0.0242031)
+(temperature,0.7717744) +- (0,0.02512011)
+(wet bulb temperature,0.6096592) +- (0,0.02872641)
+};
+
+\addplot coordinates {
+(dew point temperature,0.919918) +- (0,0.0498944)
+(relative humidity,1.188207) +- (0,0.02473205)
+(temperature,0.7725684) +- (0,0.02606424)
+(wet bulb temperature,0.6090645) +- (0,0.02824798)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9184004) +- (0,0.04900691)
+(relative humidity,1.1880586) +- (0,0.02354983)
+(temperature,0.7732158) +- (0,0.02498042)
+(wet bulb temperature,0.6072422) +- (0,0.02871307)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% PNS extended reference window drop50
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (PNS extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+dew point temperature & 0.9034922 & 0.04426265 & 0.9330576 & 0.05632297 & 0.9342725 & 0.05795572 & 0.9381689 & 0.05690599 & 0.9343223 & 0.05626245 & 0.9326621 & 0.05608508 \\
+relative humidity & 1.1842793 & 0.02308719 & 1.186084 & 0.0272251 & 1.187458 & 0.02738054 & 1.1854209 & 0.02757533 & 1.1865771 & 0.02682161 & 1.1866348 & 0.02725313 \\
+temperature & 0.7665293 & 0.02425388 & 0.7717646 & 0.02881782 & 0.7728984 & 0.0283158 & 0.7730771 & 0.02858046 & 0.7736191 & 0.02833855 & 0.7720391 & 0.02777218 \\
+wet bulb temperature & 0.6030645 & 0.02582578 & 0.6061982 & 0.03107617 & 0.6061387 & 0.0305717 & 0.6053887 & 0.03126294 & 0.6064326 & 0.03090215 & 0.6070947 & 0.0317622 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (PNS extended reference window).}
+\label{fig:PNS_extended_reference_window_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={dew point temperature,relative humidity,temperature,wet bulb temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(dew point temperature,0.9034922) +- (0,0.04426265)
+(relative humidity,1.1842793) +- (0,0.02308719)
+(temperature,0.7665293) +- (0,0.02425388)
+(wet bulb temperature,0.6030645) +- (0,0.02582578)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9330576) +- (0,0.05632297)
+(relative humidity,1.186084) +- (0,0.0272251)
+(temperature,0.7717646) +- (0,0.02881782)
+(wet bulb temperature,0.6061982) +- (0,0.03107617)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9342725) +- (0,0.05795572)
+(relative humidity,1.187458) +- (0,0.02738054)
+(temperature,0.7728984) +- (0,0.0283158)
+(wet bulb temperature,0.6061387) +- (0,0.0305717)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9381689) +- (0,0.05690599)
+(relative humidity,1.1854209) +- (0,0.02757533)
+(temperature,0.7730771) +- (0,0.02858046)
+(wet bulb temperature,0.6053887) +- (0,0.03126294)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9343223) +- (0,0.05626245)
+(relative humidity,1.1865771) +- (0,0.02682161)
+(temperature,0.7736191) +- (0,0.02833855)
+(wet bulb temperature,0.6064326) +- (0,0.03090215)
+};
+
+\addplot coordinates {
+(dew point temperature,0.9326621) +- (0,0.05608508)
+(relative humidity,1.1866348) +- (0,0.02725313)
+(temperature,0.7720391) +- (0,0.02777218)
+(wet bulb temperature,0.6070947) +- (0,0.0317622)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (DFW).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 3.981884 & 0.04345439 &  &  & 3.981884 & 0.04345439 & 3.98076 & 0.04400866 & 3.981983 & 0.04579683 & 3.980879 & 0.0452628 \\
+station level pressure & 5.133133 & 0.04102445 &  &  & 5.133133 & 0.04102445 & 5.133041 & 0.04132034 & 5.135389 & 0.0424016 & 5.136843 & 0.0407107 \\
+temperature & 3.425808 & 0.03494184 &  &  & 3.425808 & 0.03494184 & 3.424385 & 0.03397364 & 3.423277 & 0.03389677 & 3.423772 & 0.03445831 \\
+wind speed & 5.927872 & 0.0541832 &  &  & 5.927872 & 0.0541832 & 5.929948 & 0.05367501 & 5.929284 & 0.05307241 & 5.927384 & 0.05223031 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (DFW).}
+\label{fig:DFW_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,3.981884) +- (0,0.04345439)
+(station level pressure,5.133133) +- (0,0.04102445)
+(temperature,3.425808) +- (0,0.03494184)
+(wind speed,5.927872) +- (0,0.0541832)
+};
+
+\addplot coordinates {
+(relative humidity,3.981884) +- (0,0.04345439)
+(station level pressure,5.133133) +- (0,0.04102445)
+(temperature,3.425808) +- (0,0.03494184)
+(wind speed,5.927872) +- (0,0.0541832)
+};
+
+\addplot coordinates {
+(relative humidity,3.98076) +- (0,0.04400866)
+(station level pressure,5.133041) +- (0,0.04132034)
+(temperature,3.424385) +- (0,0.03397364)
+(wind speed,5.929948) +- (0,0.05367501)
+};
+
+\addplot coordinates {
+(relative humidity,3.981983) +- (0,0.04579683)
+(station level pressure,5.135389) +- (0,0.0424016)
+(temperature,3.423277) +- (0,0.03389677)
+(wind speed,5.929284) +- (0,0.05307241)
+};
+
+\addplot coordinates {
+(relative humidity,3.980879) +- (0,0.0452628)
+(station level pressure,5.136843) +- (0,0.0407107)
+(temperature,3.423772) +- (0,0.03445831)
+(wind speed,5.927384) +- (0,0.05223031)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW drop10
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (DFW).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 3.981884 & 0.04345439 & 3.981835 & 0.04457904 & 3.98004 & 0.04191591 & 3.982087 & 0.0423382 & 3.977798 & 0.0426708 & 3.980335 & 0.04489773 \\
+station level pressure & 5.133133 & 0.04102445 & 5.133095 & 0.04205666 & 5.136457 & 0.03998427 & 5.137434 & 0.04092282 & 5.133755 & 0.04195849 & 5.133295 & 0.04059059 \\
+temperature & 3.425808 & 0.03494184 & 3.424345 & 0.0331774 & 3.425292 & 0.03473611 & 3.424682 & 0.03472677 & 3.422398 & 0.03457959 & 3.42372 & 0.03369267 \\
+wind speed & 5.927872 & 0.0541832 & 5.927337 & 0.05468245 & 5.927788 & 0.05475296 & 5.923521 & 0.05502279 & 5.924558 & 0.05634386 & 5.925758 & 0.0520915 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (DFW).}
+\label{fig:DFW_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,3.981884) +- (0,0.04345439)
+(station level pressure,5.133133) +- (0,0.04102445)
+(temperature,3.425808) +- (0,0.03494184)
+(wind speed,5.927872) +- (0,0.0541832)
+};
+
+\addplot coordinates {
+(relative humidity,3.981835) +- (0,0.04457904)
+(station level pressure,5.133095) +- (0,0.04205666)
+(temperature,3.424345) +- (0,0.0331774)
+(wind speed,5.927337) +- (0,0.05468245)
+};
+
+\addplot coordinates {
+(relative humidity,3.98004) +- (0,0.04191591)
+(station level pressure,5.136457) +- (0,0.03998427)
+(temperature,3.425292) +- (0,0.03473611)
+(wind speed,5.927788) +- (0,0.05475296)
+};
+
+\addplot coordinates {
+(relative humidity,3.982087) +- (0,0.0423382)
+(station level pressure,5.137434) +- (0,0.04092282)
+(temperature,3.424682) +- (0,0.03472677)
+(wind speed,5.923521) +- (0,0.05502279)
+};
+
+\addplot coordinates {
+(relative humidity,3.977798) +- (0,0.0426708)
+(station level pressure,5.133755) +- (0,0.04195849)
+(temperature,3.422398) +- (0,0.03457959)
+(wind speed,5.924558) +- (0,0.05634386)
+};
+
+\addplot coordinates {
+(relative humidity,3.980335) +- (0,0.04489773)
+(station level pressure,5.133295) +- (0,0.04059059)
+(temperature,3.42372) +- (0,0.03369267)
+(wind speed,5.925758) +- (0,0.0520915)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW drop25
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (DFW).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 3.981884 & 0.04345439 & 3.978722 & 0.04425298 & 3.97966 & 0.04582764 & 3.979854 & 0.04319812 & 3.980034 & 0.04407825 & 3.978848 & 0.04427509 \\
+station level pressure & 5.133133 & 0.04102445 & 5.134159 & 0.04051219 & 5.137775 & 0.04207829 & 5.136737 & 0.04171934 & 5.133272 & 0.04170289 & 5.133964 & 0.04060699 \\
+temperature & 3.425808 & 0.03494184 & 3.424346 & 0.03402556 & 3.425219 & 0.03489447 & 3.425385 & 0.03448508 & 3.422866 & 0.03350369 & 3.423739 & 0.03273058 \\
+wind speed & 5.927872 & 0.0541832 & 5.924343 & 0.05248796 & 5.926335 & 0.05349458 & 5.925367 & 0.0539033 & 5.92557 & 0.05286429 & 5.925825 & 0.05166091 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (DFW).}
+\label{fig:DFW_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,3.981884) +- (0,0.04345439)
+(station level pressure,5.133133) +- (0,0.04102445)
+(temperature,3.425808) +- (0,0.03494184)
+(wind speed,5.927872) +- (0,0.0541832)
+};
+
+\addplot coordinates {
+(relative humidity,3.978722) +- (0,0.04425298)
+(station level pressure,5.134159) +- (0,0.04051219)
+(temperature,3.424346) +- (0,0.03402556)
+(wind speed,5.924343) +- (0,0.05248796)
+};
+
+\addplot coordinates {
+(relative humidity,3.97966) +- (0,0.04582764)
+(station level pressure,5.137775) +- (0,0.04207829)
+(temperature,3.425219) +- (0,0.03489447)
+(wind speed,5.926335) +- (0,0.05349458)
+};
+
+\addplot coordinates {
+(relative humidity,3.979854) +- (0,0.04319812)
+(station level pressure,5.136737) +- (0,0.04171934)
+(temperature,3.425385) +- (0,0.03448508)
+(wind speed,5.925367) +- (0,0.0539033)
+};
+
+\addplot coordinates {
+(relative humidity,3.980034) +- (0,0.04407825)
+(station level pressure,5.133272) +- (0,0.04170289)
+(temperature,3.422866) +- (0,0.03350369)
+(wind speed,5.92557) +- (0,0.05286429)
+};
+
+\addplot coordinates {
+(relative humidity,3.978848) +- (0,0.04427509)
+(station level pressure,5.133964) +- (0,0.04060699)
+(temperature,3.423739) +- (0,0.03273058)
+(wind speed,5.925825) +- (0,0.05166091)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW drop50
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (DFW).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 3.981884 & 0.04345439 & 3.98963 & 0.04692822 & 3.989322 & 0.04655445 & 3.990228 & 0.04548295 & 3.989118 & 0.04563321 & 3.989707 & 0.04561802 \\
+station level pressure & 5.133133 & 0.04102445 & 5.141587 & 0.04384649 & 5.139895 & 0.04431435 & 5.14173 & 0.04450241 & 5.14169 & 0.0440818 & 5.143091 & 0.04223978 \\
+temperature & 3.425808 & 0.03494184 & 3.429331 & 0.03799447 & 3.427954 & 0.03763297 & 3.429398 & 0.03825043 & 3.429002 & 0.03680713 & 3.42903 & 0.03842254 \\
+wind speed & 5.927872 & 0.0541832 & 5.936438 & 0.05608281 & 5.933972 & 0.05619525 & 5.931104 & 0.05568007 & 5.936566 & 0.05687277 & 5.933446 & 0.05857941 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (DFW).}
+\label{fig:DFW_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,3.981884) +- (0,0.04345439)
+(station level pressure,5.133133) +- (0,0.04102445)
+(temperature,3.425808) +- (0,0.03494184)
+(wind speed,5.927872) +- (0,0.0541832)
+};
+
+\addplot coordinates {
+(relative humidity,3.98963) +- (0,0.04692822)
+(station level pressure,5.141587) +- (0,0.04384649)
+(temperature,3.429331) +- (0,0.03799447)
+(wind speed,5.936438) +- (0,0.05608281)
+};
+
+\addplot coordinates {
+(relative humidity,3.989322) +- (0,0.04655445)
+(station level pressure,5.139895) +- (0,0.04431435)
+(temperature,3.427954) +- (0,0.03763297)
+(wind speed,5.933972) +- (0,0.05619525)
+};
+
+\addplot coordinates {
+(relative humidity,3.990228) +- (0,0.04548295)
+(station level pressure,5.14173) +- (0,0.04450241)
+(temperature,3.429398) +- (0,0.03825043)
+(wind speed,5.931104) +- (0,0.05568007)
+};
+
+\addplot coordinates {
+(relative humidity,3.989118) +- (0,0.04563321)
+(station level pressure,5.14169) +- (0,0.0440818)
+(temperature,3.429002) +- (0,0.03680713)
+(wind speed,5.936566) +- (0,0.05687277)
+};
+
+\addplot coordinates {
+(relative humidity,3.989707) +- (0,0.04561802)
+(station level pressure,5.143091) +- (0,0.04223978)
+(temperature,3.42903) +- (0,0.03842254)
+(wind speed,5.933446) +- (0,0.05857941)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW extended reference window drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (DFW extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 4.240452 & 0.08288399 &  &  & 4.240452 & 0.08288399 & 4.237383 & 0.08297317 & 4.242164 & 0.0819479 & 4.236419 & 0.08381384 \\
+station level pressure & 5.226586 & 0.08177924 &  &  & 5.226586 & 0.08177924 & 5.22442 & 0.08190498 & 5.227144 & 0.08495195 & 5.224091 & 0.08208718 \\
+temperature & 3.649166 & 0.07965783 &  &  & 3.649166 & 0.07965783 & 3.646826 & 0.08089116 & 3.650507 & 0.08135815 & 3.645984 & 0.08053556 \\
+wind speed & 5.662381 & 0.04709916 &  &  & 5.662381 & 0.04709916 & 5.661411 & 0.04623308 & 5.661853 & 0.04395612 & 5.661665 & 0.04711948 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (DFW extended reference window).}
+\label{fig:DFW_extended_reference_window_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,4.240452) +- (0,0.08288399)
+(station level pressure,5.226586) +- (0,0.08177924)
+(temperature,3.649166) +- (0,0.07965783)
+(wind speed,5.662381) +- (0,0.04709916)
+};
+
+\addplot coordinates {
+(relative humidity,4.240452) +- (0,0.08288399)
+(station level pressure,5.226586) +- (0,0.08177924)
+(temperature,3.649166) +- (0,0.07965783)
+(wind speed,5.662381) +- (0,0.04709916)
+};
+
+\addplot coordinates {
+(relative humidity,4.237383) +- (0,0.08297317)
+(station level pressure,5.22442) +- (0,0.08190498)
+(temperature,3.646826) +- (0,0.08089116)
+(wind speed,5.661411) +- (0,0.04623308)
+};
+
+\addplot coordinates {
+(relative humidity,4.242164) +- (0,0.0819479)
+(station level pressure,5.227144) +- (0,0.08495195)
+(temperature,3.650507) +- (0,0.08135815)
+(wind speed,5.661853) +- (0,0.04395612)
+};
+
+\addplot coordinates {
+(relative humidity,4.236419) +- (0,0.08381384)
+(station level pressure,5.224091) +- (0,0.08208718)
+(temperature,3.645984) +- (0,0.08053556)
+(wind speed,5.661665) +- (0,0.04711948)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW extended reference window drop10
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (DFW extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 4.240452 & 0.08288399 & 4.236899 & 0.08168798 & 4.239988 & 0.08348108 & 4.236635 & 0.07964177 & 4.242909 & 0.08087579 & 4.236905 & 0.08190994 \\
+station level pressure & 5.226586 & 0.08177924 & 5.224428 & 0.08292057 & 5.226598 & 0.08301348 & 5.222071 & 0.08273213 & 5.228242 & 0.08324833 & 5.2278 & 0.08207352 \\
+temperature & 3.649166 & 0.07965783 & 3.646665 & 0.07916149 & 3.648698 & 0.07849443 & 3.647259 & 0.07847557 & 3.652246 & 0.07919169 & 3.647514 & 0.07997026 \\
+wind speed & 5.662381 & 0.04709916 & 5.661991 & 0.04609754 & 5.665783 & 0.04527398 & 5.663801 & 0.04359311 & 5.662706 & 0.04578114 & 5.662935 & 0.04591023 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (DFW extended reference window).}
+\label{fig:DFW_extended_reference_window_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,4.240452) +- (0,0.08288399)
+(station level pressure,5.226586) +- (0,0.08177924)
+(temperature,3.649166) +- (0,0.07965783)
+(wind speed,5.662381) +- (0,0.04709916)
+};
+
+\addplot coordinates {
+(relative humidity,4.236899) +- (0,0.08168798)
+(station level pressure,5.224428) +- (0,0.08292057)
+(temperature,3.646665) +- (0,0.07916149)
+(wind speed,5.661991) +- (0,0.04609754)
+};
+
+\addplot coordinates {
+(relative humidity,4.239988) +- (0,0.08348108)
+(station level pressure,5.226598) +- (0,0.08301348)
+(temperature,3.648698) +- (0,0.07849443)
+(wind speed,5.665783) +- (0,0.04527398)
+};
+
+\addplot coordinates {
+(relative humidity,4.236635) +- (0,0.07964177)
+(station level pressure,5.222071) +- (0,0.08273213)
+(temperature,3.647259) +- (0,0.07847557)
+(wind speed,5.663801) +- (0,0.04359311)
+};
+
+\addplot coordinates {
+(relative humidity,4.242909) +- (0,0.08087579)
+(station level pressure,5.228242) +- (0,0.08324833)
+(temperature,3.652246) +- (0,0.07919169)
+(wind speed,5.662706) +- (0,0.04578114)
+};
+
+\addplot coordinates {
+(relative humidity,4.236905) +- (0,0.08190994)
+(station level pressure,5.2278) +- (0,0.08207352)
+(temperature,3.647514) +- (0,0.07997026)
+(wind speed,5.662935) +- (0,0.04591023)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW extended reference window drop25
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (DFW extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 4.240452 & 0.08288399 & 4.241589 & 0.08302959 & 4.239564 & 0.08181152 & 4.242899 & 0.08274573 & 4.242682 & 0.08239089 & 4.237437 & 0.07964228 \\
+station level pressure & 5.226586 & 0.08177924 & 5.223573 & 0.08250101 & 5.224229 & 0.08285652 & 5.227901 & 0.08261448 & 5.228688 & 0.08302874 & 5.219513 & 0.08178478 \\
+temperature & 3.649166 & 0.07965783 & 3.647972 & 0.07966674 & 3.646533 & 0.07829033 & 3.651965 & 0.07923372 & 3.651157 & 0.0796709 & 3.644949 & 0.07860878 \\
+wind speed & 5.662381 & 0.04709916 & 5.661835 & 0.04519919 & 5.663001 & 0.0446969 & 5.662032 & 0.04628768 & 5.663981 & 0.04628717 & 5.66279 & 0.04514794 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (DFW extended reference window).}
+\label{fig:DFW_extended_reference_window_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,4.240452) +- (0,0.08288399)
+(station level pressure,5.226586) +- (0,0.08177924)
+(temperature,3.649166) +- (0,0.07965783)
+(wind speed,5.662381) +- (0,0.04709916)
+};
+
+\addplot coordinates {
+(relative humidity,4.241589) +- (0,0.08302959)
+(station level pressure,5.223573) +- (0,0.08250101)
+(temperature,3.647972) +- (0,0.07966674)
+(wind speed,5.661835) +- (0,0.04519919)
+};
+
+\addplot coordinates {
+(relative humidity,4.239564) +- (0,0.08181152)
+(station level pressure,5.224229) +- (0,0.08285652)
+(temperature,3.646533) +- (0,0.07829033)
+(wind speed,5.663001) +- (0,0.0446969)
+};
+
+\addplot coordinates {
+(relative humidity,4.242899) +- (0,0.08274573)
+(station level pressure,5.227901) +- (0,0.08261448)
+(temperature,3.651965) +- (0,0.07923372)
+(wind speed,5.662032) +- (0,0.04628768)
+};
+
+\addplot coordinates {
+(relative humidity,4.242682) +- (0,0.08239089)
+(station level pressure,5.228688) +- (0,0.08302874)
+(temperature,3.651157) +- (0,0.0796709)
+(wind speed,5.663981) +- (0,0.04628717)
+};
+
+\addplot coordinates {
+(relative humidity,4.237437) +- (0,0.07964228)
+(station level pressure,5.219513) +- (0,0.08178478)
+(temperature,3.644949) +- (0,0.07860878)
+(wind speed,5.66279) +- (0,0.04514794)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% DFW extended reference window drop50
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (DFW extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+relative humidity & 4.240452 & 0.08288399 & 4.241242 & 0.08701993 & 4.240297 & 0.08530138 & 4.243812 & 0.08963995 & 4.242455 & 0.0879974 & 4.247166 & 0.08846006 \\
+station level pressure & 5.226586 & 0.08177924 & 5.230312 & 0.08651224 & 5.228187 & 0.08374629 & 5.231113 & 0.08410716 & 5.229587 & 0.08586306 & 5.230272 & 0.08648291 \\
+temperature & 3.649166 & 0.07965783 & 3.652683 & 0.08473373 & 3.648884 & 0.08074487 & 3.653493 & 0.08473217 & 3.652698 & 0.08372603 & 3.655976 & 0.08345578 \\
+wind speed & 5.662381 & 0.04709916 & 5.672836 & 0.0472199 & 5.672493 & 0.04793665 & 5.671536 & 0.04629796 & 5.672093 & 0.04658818 & 5.672298 & 0.04879202 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (DFW extended reference window).}
+\label{fig:DFW_extended_reference_window_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={relative humidity,station level pressure,temperature,wind speed},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(relative humidity,4.240452) +- (0,0.08288399)
+(station level pressure,5.226586) +- (0,0.08177924)
+(temperature,3.649166) +- (0,0.07965783)
+(wind speed,5.662381) +- (0,0.04709916)
+};
+
+\addplot coordinates {
+(relative humidity,4.241242) +- (0,0.08701993)
+(station level pressure,5.230312) +- (0,0.08651224)
+(temperature,3.652683) +- (0,0.08473373)
+(wind speed,5.672836) +- (0,0.0472199)
+};
+
+\addplot coordinates {
+(relative humidity,4.240297) +- (0,0.08530138)
+(station level pressure,5.228187) +- (0,0.08374629)
+(temperature,3.648884) +- (0,0.08074487)
+(wind speed,5.672493) +- (0,0.04793665)
+};
+
+\addplot coordinates {
+(relative humidity,4.243812) +- (0,0.08963995)
+(station level pressure,5.231113) +- (0,0.08410716)
+(temperature,3.653493) +- (0,0.08473217)
+(wind speed,5.671536) +- (0,0.04629796)
+};
+
+\addplot coordinates {
+(relative humidity,4.242455) +- (0,0.0879974)
+(station level pressure,5.229587) +- (0,0.08586306)
+(temperature,3.652698) +- (0,0.08372603)
+(wind speed,5.672093) +- (0,0.04658818)
+};
+
+\addplot coordinates {
+(relative humidity,4.247166) +- (0,0.08846006)
+(station level pressure,5.230272) +- (0,0.08648291)
+(temperature,3.655976) +- (0,0.08345578)
+(wind speed,5.672298) +- (0,0.04879202)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Chicago).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2890742 & 0.004287001 &  &  & 0.2890742 & 0.004287001 & 0.2889111 & 0.004335397 & 0.2889141 & 0.004578493 & 0.2889668 & 0.004192266 \\
+Barometric.Pressure & 7.2215156 & 0.205172068 &  &  & 7.2215156 & 0.205172068 & 7.2423291 & 0.194272075 & 7.2258682 & 0.203702768 & 7.2362041 & 0.204180555 \\
+Humidity & 1.5033301 & 0.025018537 &  &  & 1.5033301 & 0.025018537 & 1.5029199 & 0.024332142 & 1.5033701 & 0.02439385 & 1.504043 & 0.025257829 \\
+Wet.Bulb.Temperature & 0.2771309 & 0.004359934 &  &  & 0.2771309 & 0.004359934 & 0.2770479 & 0.004345318 & 0.2770449 & 0.004653304 & 0.277166 & 0.004283996 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Chicago).}
+\label{fig:Chicago_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2890742) +- (0,0.004287001)
+(Barometric.Pressure,7.2215156) +- (0,0.205172068)
+(Humidity,1.5033301) +- (0,0.025018537)
+(Wet.Bulb.Temperature,0.2771309) +- (0,0.004359934)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2890742) +- (0,0.004287001)
+(Barometric.Pressure,7.2215156) +- (0,0.205172068)
+(Humidity,1.5033301) +- (0,0.025018537)
+(Wet.Bulb.Temperature,0.2771309) +- (0,0.004359934)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889111) +- (0,0.004335397)
+(Barometric.Pressure,7.2423291) +- (0,0.194272075)
+(Humidity,1.5029199) +- (0,0.024332142)
+(Wet.Bulb.Temperature,0.2770479) +- (0,0.004345318)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889141) +- (0,0.004578493)
+(Barometric.Pressure,7.2258682) +- (0,0.203702768)
+(Humidity,1.5033701) +- (0,0.02439385)
+(Wet.Bulb.Temperature,0.2770449) +- (0,0.004653304)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889668) +- (0,0.004192266)
+(Barometric.Pressure,7.2362041) +- (0,0.204180555)
+(Humidity,1.504043) +- (0,0.025257829)
+(Wet.Bulb.Temperature,0.277166) +- (0,0.004283996)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago drop10
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Chicago).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2890742 & 0.004287001 & 0.2891963 & 0.004499342 & 0.2889648 & 0.004292358 & 0.2889512 & 0.004423248 & 0.2889307 & 0.00419322 & 0.2890967 & 0.004417068 \\
+Barometric.Pressure & 7.2215156 & 0.205172068 & 7.2233516 & 0.203409845 & 7.2434307 & 0.195779364 & 7.2291777 & 0.20108431 & 7.2390908 & 0.199938061 & 7.2291885 & 0.208750146 \\
+Humidity & 1.5033301 & 0.025018537 & 1.5049092 & 0.026131511 & 1.502209 & 0.024633422 & 1.5026709 & 0.025088284 & 1.5026436 & 0.024699249 & 1.503333 & 0.024771174 \\
+Wet.Bulb.Temperature & 0.2771309 & 0.004359934 & 0.2772539 & 0.004390379 & 0.2770947 & 0.00444939 & 0.2768818 & 0.004525685 & 0.2770195 & 0.004339007 & 0.2771113 & 0.004413131 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Chicago).}
+\label{fig:Chicago_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2890742) +- (0,0.004287001)
+(Barometric.Pressure,7.2215156) +- (0,0.205172068)
+(Humidity,1.5033301) +- (0,0.025018537)
+(Wet.Bulb.Temperature,0.2771309) +- (0,0.004359934)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2891963) +- (0,0.004499342)
+(Barometric.Pressure,7.2233516) +- (0,0.203409845)
+(Humidity,1.5049092) +- (0,0.026131511)
+(Wet.Bulb.Temperature,0.2772539) +- (0,0.004390379)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889648) +- (0,0.004292358)
+(Barometric.Pressure,7.2434307) +- (0,0.195779364)
+(Humidity,1.502209) +- (0,0.024633422)
+(Wet.Bulb.Temperature,0.2770947) +- (0,0.00444939)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889512) +- (0,0.004423248)
+(Barometric.Pressure,7.2291777) +- (0,0.20108431)
+(Humidity,1.5026709) +- (0,0.025088284)
+(Wet.Bulb.Temperature,0.2768818) +- (0,0.004525685)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889307) +- (0,0.00419322)
+(Barometric.Pressure,7.2390908) +- (0,0.199938061)
+(Humidity,1.5026436) +- (0,0.024699249)
+(Wet.Bulb.Temperature,0.2770195) +- (0,0.004339007)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2890967) +- (0,0.004417068)
+(Barometric.Pressure,7.2291885) +- (0,0.208750146)
+(Humidity,1.503333) +- (0,0.024771174)
+(Wet.Bulb.Temperature,0.2771113) +- (0,0.004413131)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago drop25
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Chicago).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2890742 & 0.004287001 & 0.2889502 & 0.004447866 & 0.2887578 & 0.004585135 & 0.2888174 & 0.004505678 & 0.2889004 & 0.004495332 & 0.2889189 & 0.004412269 \\
+Barometric.Pressure & 7.2215156 & 0.205172068 & 7.2412695 & 0.198070084 & 7.2309629 & 0.193743069 & 7.218416 & 0.200414791 & 7.2240205 & 0.205989252 & 7.219166 & 0.208367355 \\
+Humidity & 1.5033301 & 0.025018537 & 1.5028398 & 0.023779657 & 1.5025977 & 0.024673442 & 1.5021787 & 0.023935712 & 1.5025186 & 0.024081957 & 1.5030293 & 0.024088613 \\
+Wet.Bulb.Temperature & 0.2771309 & 0.004359934 & 0.2770791 & 0.004557036 & 0.276877 & 0.004579183 & 0.2769912 & 0.004496843 & 0.2769414 & 0.004354214 & 0.2770381 & 0.004339365 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Chicago).}
+\label{fig:Chicago_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2890742) +- (0,0.004287001)
+(Barometric.Pressure,7.2215156) +- (0,0.205172068)
+(Humidity,1.5033301) +- (0,0.025018537)
+(Wet.Bulb.Temperature,0.2771309) +- (0,0.004359934)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889502) +- (0,0.004447866)
+(Barometric.Pressure,7.2412695) +- (0,0.198070084)
+(Humidity,1.5028398) +- (0,0.023779657)
+(Wet.Bulb.Temperature,0.2770791) +- (0,0.004557036)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2887578) +- (0,0.004585135)
+(Barometric.Pressure,7.2309629) +- (0,0.193743069)
+(Humidity,1.5025977) +- (0,0.024673442)
+(Wet.Bulb.Temperature,0.276877) +- (0,0.004579183)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2888174) +- (0,0.004505678)
+(Barometric.Pressure,7.218416) +- (0,0.200414791)
+(Humidity,1.5021787) +- (0,0.023935712)
+(Wet.Bulb.Temperature,0.2769912) +- (0,0.004496843)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889004) +- (0,0.004495332)
+(Barometric.Pressure,7.2240205) +- (0,0.205989252)
+(Humidity,1.5025186) +- (0,0.024081957)
+(Wet.Bulb.Temperature,0.2769414) +- (0,0.004354214)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2889189) +- (0,0.004412269)
+(Barometric.Pressure,7.219166) +- (0,0.208367355)
+(Humidity,1.5030293) +- (0,0.024088613)
+(Wet.Bulb.Temperature,0.2770381) +- (0,0.004339365)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago drop50
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Chicago).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2890742 & 0.004287001 & 0.289083 & 0.00512077 & 0.2891992 & 0.005110118 & 0.2895928 & 0.004907691 & 0.2894561 & 0.004893319 & 0.2896963 & 0.004943512 \\
+Barometric.Pressure & 7.2215156 & 0.205172068 & 7.2634307 & 0.207136903 & 7.2790195 & 0.200336268 & 7.2742275 & 0.205335137 & 7.2613896 & 0.215555379 & 7.2766982 & 0.200270948 \\
+Humidity & 1.5033301 & 0.025018537 & 1.5085527 & 0.028234774 & 1.507208 & 0.028802067 & 1.5095664 & 0.027801018 & 1.5076699 & 0.026374422 & 1.5101016 & 0.028876278 \\
+Wet.Bulb.Temperature & 0.2771309 & 0.004359934 & 0.2776729 & 0.005006987 & 0.2776963 & 0.005061151 & 0.2780117 & 0.004880382 & 0.2777334 & 0.004845996 & 0.2781865 & 0.004993126 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Chicago).}
+\label{fig:Chicago_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2890742) +- (0,0.004287001)
+(Barometric.Pressure,7.2215156) +- (0,0.205172068)
+(Humidity,1.5033301) +- (0,0.025018537)
+(Wet.Bulb.Temperature,0.2771309) +- (0,0.004359934)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.289083) +- (0,0.00512077)
+(Barometric.Pressure,7.2634307) +- (0,0.207136903)
+(Humidity,1.5085527) +- (0,0.028234774)
+(Wet.Bulb.Temperature,0.2776729) +- (0,0.005006987)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2891992) +- (0,0.005110118)
+(Barometric.Pressure,7.2790195) +- (0,0.200336268)
+(Humidity,1.507208) +- (0,0.028802067)
+(Wet.Bulb.Temperature,0.2776963) +- (0,0.005061151)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2895928) +- (0,0.004907691)
+(Barometric.Pressure,7.2742275) +- (0,0.205335137)
+(Humidity,1.5095664) +- (0,0.027801018)
+(Wet.Bulb.Temperature,0.2780117) +- (0,0.004880382)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2894561) +- (0,0.004893319)
+(Barometric.Pressure,7.2613896) +- (0,0.215555379)
+(Humidity,1.5076699) +- (0,0.026374422)
+(Wet.Bulb.Temperature,0.2777334) +- (0,0.004845996)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2896963) +- (0,0.004943512)
+(Barometric.Pressure,7.2766982) +- (0,0.200270948)
+(Humidity,1.5101016) +- (0,0.028876278)
+(Wet.Bulb.Temperature,0.2781865) +- (0,0.004993126)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago extended reference window drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Chicago extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2960693 & 0.003226692 &  &  & 0.2960693 & 0.003226692 & 0.2961611 & 0.003189236 & 0.2959873 & 0.003268776 & 0.2959336 & 0.003262342 \\
+Barometric.Pressure & 7.145457 & 0.185135232 &  &  & 7.145457 & 0.185135232 & 7.145668 & 0.180968276 & 7.145668 & 0.185098138 & 7.1381201 & 0.192125425 \\
+Humidity & 1.4927393 & 0.02501136 &  &  & 1.4927393 & 0.02501136 & 1.4928311 & 0.025276499 & 1.4918154 & 0.024621027 & 1.4922051 & 0.025670421 \\
+Wet.Bulb.Temperature & 0.3024268 & 0.00518222 &  &  & 0.3024268 & 0.00518222 & 0.3025869 & 0.004955509 & 0.3021777 & 0.00505534 & 0.3021084 & 0.005078234 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Chicago extended reference window).}
+\label{fig:Chicago_extended_reference_window_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2960693) +- (0,0.003226692)
+(Barometric.Pressure,7.145457) +- (0,0.185135232)
+(Humidity,1.4927393) +- (0,0.02501136)
+(Wet.Bulb.Temperature,0.3024268) +- (0,0.00518222)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2960693) +- (0,0.003226692)
+(Barometric.Pressure,7.145457) +- (0,0.185135232)
+(Humidity,1.4927393) +- (0,0.02501136)
+(Wet.Bulb.Temperature,0.3024268) +- (0,0.00518222)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2961611) +- (0,0.003189236)
+(Barometric.Pressure,7.145668) +- (0,0.180968276)
+(Humidity,1.4928311) +- (0,0.025276499)
+(Wet.Bulb.Temperature,0.3025869) +- (0,0.004955509)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2959873) +- (0,0.003268776)
+(Barometric.Pressure,7.145668) +- (0,0.185098138)
+(Humidity,1.4918154) +- (0,0.024621027)
+(Wet.Bulb.Temperature,0.3021777) +- (0,0.00505534)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2959336) +- (0,0.003262342)
+(Barometric.Pressure,7.1381201) +- (0,0.192125425)
+(Humidity,1.4922051) +- (0,0.025670421)
+(Wet.Bulb.Temperature,0.3021084) +- (0,0.005078234)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago extended reference window drop10
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Chicago extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2960693 & 0.003226692 & 0.2961465 & 0.003278801 & 0.2960986 & 0.003253591 & 0.2959287 & 0.003239634 & 0.2958428 & 0.00318011 & 0.2961113 & 0.003241171 \\
+Barometric.Pressure & 7.145457 & 0.185135232 & 7.1463203 & 0.191435588 & 7.1458838 & 0.193499347 & 7.133334 & 0.19190018 & 7.1527207 & 0.17690714 & 7.1420449 & 0.18521043 \\
+Humidity & 1.4927393 & 0.02501136 & 1.4927881 & 0.025823607 & 1.4932285 & 0.025773373 & 1.4907812 & 0.024874318 & 1.4918652 & 0.02477512 & 1.4920937 & 0.025394324 \\
+Wet.Bulb.Temperature & 0.3024268 & 0.00518222 & 0.3021533 & 0.0050311 & 0.3022822 & 0.005265447 & 0.302166 & 0.005038333 & 0.3021543 & 0.00495194 & 0.3020342 & 0.004899004 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Chicago extended reference window).}
+\label{fig:Chicago_extended_reference_window_10}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2960693) +- (0,0.003226692)
+(Barometric.Pressure,7.145457) +- (0,0.185135232)
+(Humidity,1.4927393) +- (0,0.02501136)
+(Wet.Bulb.Temperature,0.3024268) +- (0,0.00518222)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2961465) +- (0,0.003278801)
+(Barometric.Pressure,7.1463203) +- (0,0.191435588)
+(Humidity,1.4927881) +- (0,0.025823607)
+(Wet.Bulb.Temperature,0.3021533) +- (0,0.0050311)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2960986) +- (0,0.003253591)
+(Barometric.Pressure,7.1458838) +- (0,0.193499347)
+(Humidity,1.4932285) +- (0,0.025773373)
+(Wet.Bulb.Temperature,0.3022822) +- (0,0.005265447)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2959287) +- (0,0.003239634)
+(Barometric.Pressure,7.133334) +- (0,0.19190018)
+(Humidity,1.4907812) +- (0,0.024874318)
+(Wet.Bulb.Temperature,0.302166) +- (0,0.005038333)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2958428) +- (0,0.00318011)
+(Barometric.Pressure,7.1527207) +- (0,0.17690714)
+(Humidity,1.4918652) +- (0,0.02477512)
+(Wet.Bulb.Temperature,0.3021543) +- (0,0.00495194)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2961113) +- (0,0.003241171)
+(Barometric.Pressure,7.1420449) +- (0,0.18521043)
+(Humidity,1.4920937) +- (0,0.025394324)
+(Wet.Bulb.Temperature,0.3020342) +- (0,0.004899004)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago extended reference window drop25
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Chicago extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2960693 & 0.003226692 & 0.2957842 & 0.003312378 & 0.2959883 & 0.003208469 & 0.2960371 & 0.00325225 & 0.2960156 & 0.003356793 & 0.2959775 & 0.003201455 \\
+Barometric.Pressure & 7.145457 & 0.185135232 & 7.1290283 & 0.193161523 & 7.1484668 & 0.188622459 & 7.1557822 & 0.182472597 & 7.1454219 & 0.191922528 & 7.1460576 & 0.185116402 \\
+Humidity & 1.4927393 & 0.02501136 & 1.4923789 & 0.024971783 & 1.4923369 & 0.024665029 & 1.4921104 & 0.024658471 & 1.4921123 & 0.025017262 & 1.4935283 & 0.025181659 \\
+Wet.Bulb.Temperature & 0.3024268 & 0.00518222 & 0.3021455 & 0.004972162 & 0.3022471 & 0.004877042 & 0.3023926 & 0.004945607 & 0.3022207 & 0.005038527 & 0.3021123 & 0.004976945 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 25\% missingness (Chicago extended reference window).}
+\label{fig:Chicago_extended_reference_window_25}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2960693) +- (0,0.003226692)
+(Barometric.Pressure,7.145457) +- (0,0.185135232)
+(Humidity,1.4927393) +- (0,0.02501136)
+(Wet.Bulb.Temperature,0.3024268) +- (0,0.00518222)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2957842) +- (0,0.003312378)
+(Barometric.Pressure,7.1290283) +- (0,0.193161523)
+(Humidity,1.4923789) +- (0,0.024971783)
+(Wet.Bulb.Temperature,0.3021455) +- (0,0.004972162)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2959883) +- (0,0.003208469)
+(Barometric.Pressure,7.1484668) +- (0,0.188622459)
+(Humidity,1.4923369) +- (0,0.024665029)
+(Wet.Bulb.Temperature,0.3022471) +- (0,0.004877042)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2960371) +- (0,0.00325225)
+(Barometric.Pressure,7.1557822) +- (0,0.182472597)
+(Humidity,1.4921104) +- (0,0.024658471)
+(Wet.Bulb.Temperature,0.3023926) +- (0,0.004945607)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2960156) +- (0,0.003356793)
+(Barometric.Pressure,7.1454219) +- (0,0.191922528)
+(Humidity,1.4921123) +- (0,0.025017262)
+(Wet.Bulb.Temperature,0.3022207) +- (0,0.005038527)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2959775) +- (0,0.003201455)
+(Barometric.Pressure,7.1460576) +- (0,0.185116402)
+(Humidity,1.4935283) +- (0,0.025181659)
+(Wet.Bulb.Temperature,0.3021123) +- (0,0.004976945)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Chicago extended reference window drop50
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Chicago extended reference window).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+Air.Temperature & 0.2960693 & 0.003226692 & 0.2963564 & 0.003665054 & 0.2964453 & 0.00351418 & 0.2964414 & 0.003555562 & 0.2966094 & 0.003501064 & 0.2962227 & 0.003447451 \\
+Barometric.Pressure & 7.145457 & 0.185135232 & 7.1835078 & 0.19414115 & 7.186999 & 0.197986718 & 7.1835664 & 0.185228977 & 7.1844854 & 0.189545363 & 7.1870107 & 0.193196077 \\
+Humidity & 1.4927393 & 0.02501136 & 1.4991855 & 0.02857173 & 1.4973867 & 0.028260181 & 1.4985391 & 0.028698139 & 1.4991533 & 0.028435668 & 1.4982432 & 0.028531075 \\
+Wet.Bulb.Temperature & 0.3024268 & 0.00518222 & 0.3032549 & 0.005469821 & 0.3034727 & 0.005310025 & 0.303418 & 0.005304947 & 0.3036582 & 0.005474895 & 0.303123 & 0.005291577 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 50\% missingness (Chicago extended reference window).}
+\label{fig:Chicago_extended_reference_window_50}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={Air.Temperature,Barometric.Pressure,Humidity,Wet.Bulb.Temperature},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(Air.Temperature,0.2960693) +- (0,0.003226692)
+(Barometric.Pressure,7.145457) +- (0,0.185135232)
+(Humidity,1.4927393) +- (0,0.02501136)
+(Wet.Bulb.Temperature,0.3024268) +- (0,0.00518222)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2963564) +- (0,0.003665054)
+(Barometric.Pressure,7.1835078) +- (0,0.19414115)
+(Humidity,1.4991855) +- (0,0.02857173)
+(Wet.Bulb.Temperature,0.3032549) +- (0,0.005469821)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2964453) +- (0,0.00351418)
+(Barometric.Pressure,7.186999) +- (0,0.197986718)
+(Humidity,1.4973867) +- (0,0.028260181)
+(Wet.Bulb.Temperature,0.3034727) +- (0,0.005310025)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2964414) +- (0,0.003555562)
+(Barometric.Pressure,7.1835664) +- (0,0.185228977)
+(Humidity,1.4985391) +- (0,0.028698139)
+(Wet.Bulb.Temperature,0.303418) +- (0,0.005304947)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2966094) +- (0,0.003501064)
+(Barometric.Pressure,7.1844854) +- (0,0.189545363)
+(Humidity,1.4991533) +- (0,0.028435668)
+(Wet.Bulb.Temperature,0.3036582) +- (0,0.005474895)
+};
+
+\addplot coordinates {
+(Air.Temperature,0.2962227) +- (0,0.003447451)
+(Barometric.Pressure,7.1870107) +- (0,0.193196077)
+(Humidity,1.4982432) +- (0,0.028531075)
+(Wet.Bulb.Temperature,0.303123) +- (0,0.005291577)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity drop0
+\begin{table}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Electricity).}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear} & \multicolumn{2}{c}{Spline} & \multicolumn{2}{c}{Locf} & \multicolumn{2}{c}{Nocb}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.102613 & 0.02567062 &  &  & 5.102613 & 0.02567062 & 5.103619 & 0.02620477 & 5.102726 & 0.02559181 & 5.102414 & 0.02582939 \\
+HPE & 4.888348 & 0.01541252 &  &  & 4.888348 & 0.01541252 & 4.886274 & 0.01574781 & 4.887542 & 0.01562183 & 4.887386 & 0.01502857 \\
+HTE & 4.872028 & 0.01899808 &  &  & 4.872028 & 0.01899808 & 4.872709 & 0.0194306 & 4.872814 & 0.01836761 & 4.872753 & 0.01827092 \\
+OFE & 5.404549 & 0.10208935 &  &  & 5.404549 & 0.10208935 & 5.403501 & 0.10224338 & 5.410437 & 0.10137489 & 5.399162 & 0.1035618 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Minimal detectable shift under 0\% missingness (Electricity).}
+\label{fig:Electricity_0}
+\begin{tikzpicture}
+\begin{axis}[ybar, bar width=8pt, width=\textwidth, height=7cm, ymin=0,
+ylabel={Minimal Detectable Shift (Factor)},
+symbolic x coords={B2E,HPE,HTE,OFE},
+xtick=data, x tick label style={rotate=30, anchor=east},
+legend style={at={(0.5,1.05)}, anchor=south, legend columns=6},
+error bars/.cd, y dir=both, y explicit]
+
+\addplot coordinates {
+(B2E,5.102613) +- (0,0.02567062)
+(HPE,4.888348) +- (0,0.01541252)
+(HTE,4.872028) +- (0,0.01899808)
+(OFE,5.404549) +- (0,0.10208935)
+};
+
+\addplot coordinates {
+(B2E,5.102613) +- (0,0.02567062)
+(HPE,4.888348) +- (0,0.01541252)
+(HTE,4.872028) +- (0,0.01899808)
+(OFE,5.404549) +- (0,0.10208935)
+};
+
+\addplot coordinates {
+(B2E,5.103619) +- (0,0.02620477)
+(HPE,4.886274) +- (0,0.01574781)
+(HTE,4.872709) +- (0,0.0194306)
+(OFE,5.403501) +- (0,0.10224338)
+};
+
+\addplot coordinates {
+(B2E,5.102726) +- (0,0.02559181)
+(HPE,4.887542) +- (0,0.01562183)
+(HTE,4.872814) +- (0,0.01836761)
+(OFE,5.410437) +- (0,0.10137489)
+};
+
+\addplot coordinates {
+(B2E,5.102414) +- (0,0.02582939)
+(HPE,4.887386) +- (0,0.01502857)
+(HTE,4.872753) +- (0,0.01827092)
+(OFE,5.399162) +- (0,0.1035618)
+};
+\legend{Baseline, None, Linear, Spline, LOCF, NOCF}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+% Electricity drop10
+\begin{table}[htbp]
+\centering
+\caption{Minimal detectable shift under 10\% missingness (Electricity) — Baseline, None, Linear.}
+\begin{tabular}{lcccccc}
+\toprule
+& \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{None} & \multicolumn{2}{c}{Linear}\\
+\textbf{Dataset} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD} & \textbf{Factor} & \textbf{SD}\\
+\midrule
+B2E & 5.103 & 0.0257 & 5.122 & 0.0328 & 5.105 & 0.0259 \\
+HPE & 4.888 & 0.0154 & 4.890 & 0.0185 & 4.887 & 0.0154 \\
+HTE & 4.872 & 0.0190 & 4.858 & 0.0248 & 4.870 & 0.0195 \\
+OFE & 5.405 & 0.1021 & 5.437 & 0.1061 & 5.418 & 0.0986 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

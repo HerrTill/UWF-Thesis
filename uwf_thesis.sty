@@ -1,0 +1,144 @@
+% This package defines how titles should
+% be typeset at The University of West Florida
+% Please check for updates
+% Achraf Cohen -acohen@uwf.edu
+
+
+\ProvidesPackage{uwf_thesis}[2023]
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{tikz}
+\RequirePackage{lipsum}
+\RequirePackage{setspace}
+\RequirePackage{titlesec}
+\RequirePackage{pdfpages}
+\RequirePackage[nottoc,notlot,notlof]{tocbibind}
+\RequirePackage[margin=1in]{geometry}
+
+% \newcommand*{\project}[1]{\gdef\@project{#1}%
+% }
+% \newcommand*{\@project}{Final Year Project}
+% \newcommand*{\advisor}[1]{\gdef\@advisor{#1}%
+% }
+% \newcommand*{\@advisor}{\texttt{\string\advisor} currently
+% not set. Please fix this.}
+
+% TITLE PAGE 
+\renewcommand*{\maketitle}{%
+\begin{titlepage}
+	\centering
+	
+	%\title{Analysis of the COVID-19 Restriction's Effects on Academics}
+    {\@title \par}
+    \vfill
+    {By \par}
+    { \@author \par}
+%   {Advisor: \@advisor}
+    \vfill
+    \begin{singlespace}
+    A thesis submitted to the Hal Marcus College of Science and Engineering  \\
+    The University of West Florida \\
+    In partial fulfillment of the requirements for the degree of \\
+    Master of Science \\
+    \\
+    \vspace{\baselineskip}
+    2026
+    \end{singlespace}
+\end{titlepage}}
+
+% % ACKNOWLEDGEMENTS 
+% \newenvironment{acknowledgements}{
+%     \chapter*{\centering \large Acknowledgements}%
+%     \addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}%
+% }{}
+
+% TABLE OF CONTENTS 
+% \renewcommand*{\contentsname}{\hfill \large Table of Contents \hfill}
+% \renewcommand{\contentsname}{\large Table of Contents}
+% \addtocontents{toc}%{~\hfill\textbf{Page}\par}
+% \renewcommand{\contentsname}{Whatever}
+
+
+
+% ABSTRACT
+\newenvironment{abstract}{
+    \chapter{\centering ABSTRACT}%
+    %\addcontentsline{toc}{chapter}{\numberline{Abstract}}%
+    }{}
+
+\bibliography{references}
+
+
+
+
+% How to get leader dots for all of table of contents
+\makeatletter
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@
+      \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      \arabic{chapter}.~\ignorespaces#1\nobreak
+      \xleaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+      \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi
+}
+\makeatother
+
+
+
+  
+% To get leader dots but screws up formatting
+% \usepackage{tocloft}
+% \renewcommand\cftchapdotsep{\cftdotsep}
+
+% \makeatletter
+% \renewcommand*\l@chapter[2]{%
+%   \ifnum \c@tocdepth >\m@ne
+%     \addpenalty{-\@highpenalty}%
+%     \vskip 1.0em \@plus\p@
+%     \setlength\@tempdima{1.5em}%
+%     \begingroup
+%       \parindent \z@ \rightskip \@pnumwidth
+%       \parfillskip -\@pnumwidth
+%       \leavevmode \bfseries
+%       \advance\leftskip\@tempdima
+%       \hskip -\leftskip
+%       #1\nobreak
+%       \xleaders\hbox{$\m@th
+%         \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+%         mu$}\hfill%
+%       \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+%       \penalty\@highpenalty
+%     \endgroup
+%   \fi}
+% \renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+% \renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+% \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+% \renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
+% \renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+% \makeatother
+
+
+% \usepackage{tocloft}
+% \renewcommand\cftchapaftersnum{.}% 
+% \renewcommand\cftchapdotsep{\cftdotsep}%
+
+
+% \usepackage{tocbasic}
+% linefill=\bfseries\TOCLineLeaderFill,beforeskip=2pt,entrynumberformat=\chapterprefixintoc,dynnumwidth]{tocline}{chapter}
+% \newcommand\chapterprefixintoc[1]{\MakeUppercase{\chaptername}~#1~}% 
+
+
+
+\endinput

@@ -1,0 +1,105 @@
+\clearpage
+\section{Introduction}
+
+\subsection{Background and Motivation}
+The rapid growth of \ac{IoT} systems has led to large volumes of multivariate time series data from environmental and sensor networks. Such data are continuously collected across domains ranging from industrial process monitoring to weather forecasting and smart city applications \cite{Cook2007}, \cite{Belay2023}. Typical variables include temperature, humidity, concentrations of particulate matter, atmospheric pressure, and other environmental or operational measures. Their usefulness depends on detecting small but persistent changes in data behavior.
+
+Detecting these changes is challenging for several reasons. First, \ac{IoT} and environmental data often exhibit autocorrelation and seasonality, reflecting both natural physical dynamics and human-driven processes \cite{Wilks2011}. Second, data sets are commonly subject to missing observations and irregular sampling due to sensor outages, communication failures, or energy-efficient transmission protocols \cite{Yoon2019}. Third, data distributions are frequently non-Gaussian and may contain outliers or heavy-tailed noise, complicating the assumptions of many statistical methods \cite{Chandola2009}. Finally, these data streams are inherently heterogeneous, differing not only between sensor types but also across spatial and temporal deployments \cite{Ben2024}. This thesis focuses on missing data and reference degradation, treating other data characteristics as secondary.
+
+In the \ac{SQC} literature, Hotelling’s $T^2$ statistic remains the canonical multivariate generalization of univariate Shewhart charts \cite{Sauter1992}. It integrates relationships between variables, providing a natural framework for detecting multivariate mean shifts. However, its theoretical guarantees—including control of the \ac{ARL} for false alarms (ARL$_0$) and detection speed (ARL$_1$)—depend on assumptions of multivariate normality, independence, and complete reference data. These assumptions are rarely satisfied in \ac{IoT} and environmental contexts. For example, autocorrelation and drift can inflate false-alarm rates, while missing or biased reference data can lead to miscalibrated baselines \cite{Venkatasubramanian2003}.
+
+Recent advances in multivariate monitoring have sought to address these limitations through robust modeling, transformation, or preprocessing strategies. For instance, \cite{Xie2024} developed a framework based on EWMA transformations designed to stabilize performance under correlated and non-normal data, while dynamic nonparametric monitoring approaches have been proposed for air pollution surveillance \cite{Xie2023}. These methods demonstrate that the classical assumptions underlying Hotelling’s $T^2$ can be relaxed through alternative modeling choices. Nonetheless, many practitioners continue to rely on $T^2$ due to its familiarity, interpretability, and integration into existing \ac{SQC} software and industrial workflows \cite{Kourti2005}.
+
+This reality highlights a critical gap: despite the availability of advanced alternatives, there is limited systematic understanding of when Hotelling’s $T^2$ remains reliable under realistic data imperfections, and when its use becomes inappropriate. This thesis is motivated by the need to address this gap through an explicit evaluation of robustness achieved not by modifying the statistic itself, but by adapting data preprocessing and reference construction strategies in the presence of missing data.
+
+\subsection{What are Control Charts and How are They Designed?}
+Control charts are foundational tools in \ac{SQC}, designed to monitor processes over time by distinguishing common-cause variation (natural randomness) from special-cause variation (potentially assignable anomalies). A control chart typically plots a summary statistic, such as a mean or variance, against time with reference to control limits that represent thresholds for normal behavior. The design of a control chart involves three key components: (i) choosing the monitored statistic, (ii) specifying control limits based on desired false-alarm rates (often linked to ARL$_0$), and (iii) defining rules for signaling out-of-control conditions. In multivariate settings, these design steps become more complex, as correlations between variables must be incorporated into the control statistic and its associated thresholds.
+These design assumptions implicitly require stable, complete reference data—an assumption that is frequently violated in IoT deployments and motivates the present study.
+
+\subsection{Hotelling's $T^2$ Chart and the Multivariate CUSUM}
+Hotelling's $T^2$ chart is well-suited for detecting large or moderate shifts in the multivariate process mean vector, making it effective when anomalies cause substantial deviations. However, it is less sensitive to small but persistent changes. For the latter, sequential techniques such as the multivariate cumulative sum (CUSUM) chart are preferable. The CUSUM chart aggregates small deviations over time, allowing the detection of gradual shifts that might otherwise remain hidden under $T^2$. This distinction between the $T^2$ chart (powerful for significant mean shifts) and the CUSUM chart (sensitive to small, sustained shifts) motivates their consideration in evaluating monitoring performance for \ac{IoT} and environmental applications.
+Although sequential techniques such as the multivariate CUSUM chart are known to be more sensitive to small persistent shifts, this thesis focuses exclusively on Hotelling’s $T^2$ due to its widespread use and interpretability.
+
+\subsubsection{Performance Metrics for Monitoring Charts}
+The performance of monitoring charts is most commonly evaluated using the concept of Run Length (RL), defined as the number of samples observed until an alarm is raised. The expected value of RL under in-control conditions (ARL$_0$) reflects false-alarm frequency, while the expected RL under out-of-control conditions (ARL$_1$) measures detection speed. Complementary metrics include the probability of detection within a fixed horizon and the misclassification rate, which quantifies the trade-off between false positives and false negatives. Together, these metrics provide a comprehensive framework for quantifying the effectiveness of monitoring strategies.
+
+\subsection{Applications to IoT and Pollution Data}
+Control charts and their multivariate extensions have found numerous applications in \ac{IoT} and pollution monitoring contexts. In smart city deployments, $T^2$ charts have been applied to sensor networks measuring air quality indicators such as particulate matter and nitrogen dioxide. CUSUM-based approaches have been used to identify subtle changes in pollution levels, for example detecting the early stages of smog events or gradual sensor drift in low-cost air monitors\cite{Xie2023}. Beyond air pollution, \ac{IoT} systems in agriculture, water quality management, and industrial monitoring also employ multivariate control charts to ensure reliability and detect emerging risks \cite{Belay2023} \cite{Kourti2005}. These applications illustrate both the utility of classical \ac{SQC} methods and the need to adapt them to the unique statistical challenges of \ac{IoT} data streams.
+
+\subsection{Definition of Robustness}
+
+In the context of this thesis, robustness does not refer to the development of new robust test statistics, influence functions, or alternative control chart families. Instead, robustness is defined operationally as the ability of an existing monitoring framework—specifically Hotelling’s $T^2$—to maintain stable and interpretable run-length properties under realistic data imperfections.
+
+Robustness is therefore evaluated at the data and reference levels, rather than at the level of the monitoring statistic itself. In particular, this thesis focuses on robustness with respect to missing observations, temporal sparsity, and reference degradation, which are pervasive in \ac{IoT} and environmental sensor deployments, due to the unreliable service offered by the sensors. Accordingly, robustness refers to the preservation of run-length distributions, not merely point estimates of \ac{ARL}$_0$ or \ac{ARL}$_1$.
+
+Stability of performance is assessed primarily through the preservation of \ac{ARL}$_0$ and \ac{ARL}$_1$ behavior under such imperfections. Robustness is achieved, where possible, through interpolation-based reconstruction of missing data and through the careful design of reference datasets (e.g., seasonal or rolling reference windows), rather than through modification of the T\textsuperscript{2} statistic.
+
+By holding the monitoring statistic fixed and systematically varying data treatment and reference construction strategies, this thesis isolates the contribution of preprocessing and reference design to monitoring robustness, avoiding conflation with methodological innovation at the statistic level.
+
+\subsection{Research Problem}
+Although Hotelling’s $T^2$ has long been regarded as a theoretically well-founded method for multivariate monitoring, its practical applicability to \ac{IoT} and environmental sensor data is uncertain. Unlike controlled industrial environments where T\textsuperscript{2} originated, real-world sensor deployments introduce challenges that directly undermine the assumptions of the method. 
+
+Several factors influence the performance of Hotelling’s T² in IoT settings, including dataset suitability, reference data quality, parameter sensitivity, and variability across deployments.
+
+First, as discussed in Section I-A, \ac{IoT} data violate key assumptions of classical \ac{SPC}, particularly due to missing data, temporal dependence, and distributional irregularities.
+
+Second, accurate monitoring requires a representative reference dataset for estimating the in-control mean and covariance matrix. In \ac{IoT} systems, however, reference data are frequently incomplete, noisy, or biased, due to sensor downtime, calibration errors, or environmental shifts \cite{Yoon2019}. Such deficiencies compromise the baseline model and propagate errors into \ac{ARL} control.
+
+Third, the performance of T\textsuperscript{2} depends strongly on parameter choices such as subgroup size, covariance estimator, and control limit specification \cite{Gray2017} \cite{Jolliffe2002}. These parameters interact with dataset properties in complex ways, yet little guidance exists for their selection in \ac{IoT} contexts.
+
+Finally, sensor datasets differ substantially across deployments—some are approximately stationary, while others follow strongly seasonal or even dynamic regimes. The robustness of T\textsuperscript{2} across this diversity is unknown, limiting its generalizability.
+
+Existing research has begun to develop alternative approaches, such as density-based anomaly detection \cite{Breunig2000}, wavelet-based monitoring \cite{Cohen2020}, and robust control charts \cite{Xie2024}. However, these methods either introduce significant computational complexity or depart from the familiar T\textsuperscript{2} framework. In contrast, a systematic, \ac{ARL}-based evaluation of Hotelling’s $T^2$ under realistic \ac{IoT} conditions is still missing from the literature.
+
+The research problem addressed in this thesis is twofold: (1) to characterize the limitations of Hotelling’s $T^2$ in \ac{IoT} and environmental monitoring, with (2) specific attention to the effects of autocorrelation, missing data, non-Gaussian distributions, and parameter sensitivity.
+
+
+To develop a practical guidance framework that enables practitioners to determine when Hotelling’s $T^2$ can be applied with confidence, and when alternative methods should be preferred.
+
+This thesis aims to close the gap between theoretical SPC frameworks and practical sensor analytics.
+
+
+
+\subsection{Research Objectives}
+
+The overarching aim of this thesis is to evaluate and extend the applicability of Hotelling’s $T^2$ statistic for the detection of small mean shifts in multivariate \ac{IoT} and environmental sensor data. Although Hotelling’s $T^2$ has a long history in \ac{MSPC} \cite{Sauter1992} \cite{Kourti2005}, its performance in the presence of the distinctive challenges posed by real-world sensor data has not been systematically characterized. These challenges include autocorrelation, non-normality, missing data, and dataset heterogeneity, all of which have been shown to substantially affect the performance of both model-based and data-driven anomaly detection approaches \cite{Chandola2009}, \cite{Belay2023}.
+
+This thesis pursues four objectives: (1) characterizing dataset suitability, (2) evaluating the impact of reference data quality, (3) assessing preprocessing strategies under missing data, and (4) developing practical deployment guidelines.
+
+
+(1) Previous studies have demonstrated that departures from independence and normality can distort the properties of multivariate control charts \cite{Venkatasubramanian2003} \cite{Wilks2011}. This thesis aims to characterize which statistical properties of \ac{IoT} and environmental datasets—such as autocorrelation strength, dimensionality, and seasonal variation—enhance or degrade the reliability of T\textsuperscript{2}-based monitoring.
+
+(2) Hotelling’s $T^2$ relies critically on accurate estimates of the \ac{IC} mean vector and covariance matrix. Incomplete or biased reference datasets can lead to mis-specified baselines, which in turn bias \ac{ARL} estimates and increase the risk of false alarms \cite{Yoon2019}. This thesis will quantify the impact of data quality factors such as missingness, temporal misalignment, and distributional shifts between training and deployment.
+
+(3) This thesis evaluates interpolation-based preprocessing strategies and their impact on covariance estimation and run-length behavior under missing data conditions.
+
+(4) A key deliverable of this research is the development of a practitioner-oriented framework for applying T\textsuperscript{2} in real-world \ac{IoT} and environmental contexts. Building on lessons from industrial SPC \cite{Kourti2005} and recent robust extensions to monitoring frameworks \cite{Xie2024}\cite{Xie2023}, this framework will provide guidance on dataset suitability, parameter selection, and the trade-offs between detection power and robustness.
+
+
+In summary, these objectives span the continuum from theoretical characterization to practical recommendations, ensuring that findings are both statistically rigorous and operationally relevant.
+
+\subsection{Research Questions}
+The research objectives are operationalized through four guiding research questions:
+
+RQ1: How does missing data affect the run-length behavior (ARL₀ and ARL₁) of Hotelling’s $T^2$ across different IoT and environmental sensor datasets?
+This question evaluates the sensitivity of Hotelling’s $T^2$ to incomplete observations in realistic monitoring scenarios. By comparing performance across multiple datasets with differing temporal and structural characteristics, the analysis provides insight into how missingness impacts false-alarm rates and detection stability under real-world conditions.
+
+RQ2: How does missing or incomplete reference data influence false-alarm stability (ARL₀) and detection performance (ARL₁) of Hotelling’s $T^2$?
+Since accurate estimation of the in-control mean vector and covariance matrix is critical for T² monitoring, this question examines the extent to which reference degradation affects baseline calibration and downstream monitoring reliability.
+
+RQ3: To what extent do interpolation-based reconstruction strategies stabilize or distort the run-length properties of Hotelling’s $T^2$ under increasing levels of missing data?
+This question assesses whether common interpolation methods preserve monitoring performance or introduce systematic distortions, particularly with respect to covariance estimation and run-length variability.
+
+RQ4: Based on empirical run-length behavior, what characteristics distinguish datasets for which Hotelling’s $T^2$ remains practically usable under missing data from those for which it does not?
+Rather than proposing a formal classification model, this question synthesizes empirical findings into practical criteria that help practitioners assess the suitability of Hotelling’s $T^2$ for specific IoT and environmental monitoring applications.
+
+Together, these questions provide a structured framework for evaluating robustness at the data and reference levels, while maintaining a fixed monitoring statistic.
+
+\subsection{Expected Contributions}
+
+The contributions of this thesis are primarily evaluative and practical, focusing on the behavior of Hotelling’s $T^2$ under realistic data conditions rather than proposing new monitoring methods.
+
+The contributions of this thesis are fourfold. First, it provides a systematic evaluation of Hotelling’s $T^2$ under missing data conditions. Second, it quantifies the effects of reference data degradation on covariance estimation and \ac{ARL} behavior. Third, it develops an \ac{ARL}-based sensitivity analysis linking theoretical performance to practical deployment. Finally, it proposes a practitioner-oriented framework for applying Hotelling’s $T^2$ in \ac{IoT} and environmental monitoring contexts.
+
+
+ 

@@ -1,0 +1,54 @@
+\clearpage
+\section{Conclusion And Future Work}
+
+\noindent The findings presented in this chapter are based on the analysis of only four datasets and are therefore most applicable to datasets with similar statistical and structural characteristics. While the selected datasets were chosen to represent a range of conditions relevant to IoT and environmental sensor networks, caution is warranted when extending these conclusions to other contexts. Differences in dependence structures, missingness mechanisms, nonstationarity, or domain-specific factors may lead to different monitoring behavior. Consequently, the results should be interpreted as indicative rather than universally generalizable, and further validation across a broader spectrum of datasets is recommended.
+
+\subsection{Summary of Key Findings}
+
+This study investigated the robustness of Hotelling’s $T^2$ monitoring under missing data in \ac{IoT} and environmental sensor networks. Across four diverse datasets and multiple adaptation strategies, several consistent insights emerged.
+
+First, Hotelling’s $T^2$ exhibits conditional robustness under missing data. The chart remains reliable up to moderate missingness levels (approximately 20--25\%), provided that the reference covariance structure is stable. Beyond this threshold, the underlying statistical assumptions deteriorate, and neither imputation nor reference extension can fully restore theoretical \ac{ARL}$_0$ behavior.
+
+Second, monitoring robustness is governed primarily by the quality of the reference dataset rather than by online data reconstruction. Seasonal reference extension consistently stabilizes covariance estimation and reduces false-alarm variability, even under substantial missingness.
+
+Third, imputation methods provide limited benefits. While linear, spline, and carry-forward approaches preserve marginal continuity and maintain mean-shift detectability, they fail to recover the multivariate dependency structure required for reliable covariance estimation. As a result, imputation cannot correct the structural distortions introduced by missing data.
+
+Fourth, hybrid strategies combining reference extension with imputation yield only modest improvements and remain dependent on the robustness of the reference dataset. imputation alone cannot compensate for deficiencies in covariance estimation.
+
+Fifth, dataset characteristics play a decisive role in determining performance. Strong inter-variable correlation, stationary covariance structures, and pronounced seasonality improve tolerance to missing data, whereas nonstationarity, regime shifts, and weak correlation amplify instability.
+
+Finally, run-length dispersion emerges as a critical metric for evaluating monitoring performance. Stable mean \ac{ARL} values may conceal substantial increases in variability, indicating that robustness must be assessed through both average behavior and its associated uncertainty.
+
+Taken together, these results clarify that Hotelling’s $T^2$ exhibits \textit{conditional, not inherent, robustness} under missing data. This distinction is essential for both practitioners and researchers designing multivariate monitoring systems.
+
+\subsection{Implications for Practical Deployment}
+
+From a practitioner perspective, the results provide clear operational guidance. For missingness levels below approximately 20\%, Hotelling’s $T^2$ remains broadly usable when supported by standard preprocessing and periodic reference updates. In the intermediate range of 20--35\% missingness, seasonal reference extension becomes essential, and monitoring results should be interpreted with increased caution due to rising variability. Beyond approximately 35--40\% missingness, classical $T^2$ loses reliability, and alternative robust or adaptive monitoring frameworks should be considered.
+
+In all cases, practitioners should evaluate covariance stability and run-length dispersion alongside mean \ac{ARL} metrics. Hybrid strategies may offer incremental improvements, but only when the underlying reference dataset remains stable and representative.
+
+Practitioners should also track covariance stability and run-length dispersion, not just mean \ac{ARL} metrics, and consider hybrid strategies only when reference robustness is ensured.
+
+\subsection{Contributions to SPC Literature}
+
+\subsubsection{Classical Methods in Modern Contexts}
+
+Despite decades of methodological evolution, Hotelling’s $T^2$ remains relevant in modern IoT monitoring contexts. This study demonstrates that classical methods retain practical value when applied with an awareness of their limitations and supported by appropriate adaptations, including reference window extension, careful preprocessing, and dataset-specific evaluation of covariance stability.
+
+\subsubsection{Bridging to Robust and Adaptive Methods}
+
+The findings complement modern distribution-free or adaptive monitoring methods \cite{Xie2023,Xie2024}. While classical $T^2$ is competitive under low-to-moderate missingness, robust frameworks are better suited to high-missingness or nonstationary regimes. This study establishes the boundary conditions for classical $T^2$, facilitating informed method selection.
+
+\subsection{Future Research Directions}
+
+Several directions for future research emerge from this work. Extending the analysis to more realistic missingness mechanisms, such as \ac{MAR} and \ac{MNAR}, would improve applicability to real-world sensor networks where missingness is often structured or outcome-dependent. In parallel, the development of adaptive control limits that respond dynamically to missingness levels, imputatio strategies, and real-time \ac{ARL}$_0$ estimates represents a promising avenue for improving robustness.
+
+Further research should also explore multivariate imputation techniques that explicitly preserve cross-variable dependence, moving beyond univariate imputation approaches. Hybrid monitoring frameworks that integrate $T^2$ with complementary anomaly detection methods may offer improved performance across diverse conditions, particularly under high missingness or nonstationarity.
+
+Finally, incorporating online learning mechanisms to update reference statistics in streaming environments could address concept drift and evolving covariance structures. Systematic parameter sensitivity studies would also help clarify how design choices—such as subgroup size, covariance estimation method, and control limits—interact with dataset characteristics to influence monitoring performance.
+
+\subsection{Final Remarks}
+
+This study underscores that robustness in multivariate monitoring is inherently contextual and conditional. Hotelling’s $T^2$ is not universally resilient to missing data; rather, its performance depends critically on reference quality, covariance stability, and dataset characteristics. By identifying the limits of imputatio, emphasizing the central role of reference construction, and providing empirically grounded thresholds for missingness, this work offers actionable guidance for both practitioners and researchers.
+
+Classical SPC methods can therefore continue to provide value in modern, imperfect-data environments when applied with a nuanced understanding of their assumptions and supported by appropriate preprocessing and reference management strategies.
