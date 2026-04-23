@@ -71,7 +71,7 @@
 % --------------------------------------------------
 % Appendices
 % --------------------------------------------------
-\usepackage[page,titletoc,title]{appendix}
+\usepackage[page,title]{appendix}
 
 % --------------------------------------------------
 % References (IEEE)
@@ -103,6 +103,8 @@
 
 \author{Till Thomas Mueller\\
 B.S., Ludwigshafen University of Business and Society, 2023}
+
+\renewcommand{\thetable}{\arabic{table}}
 
 \begin{document}
 
@@ -198,15 +200,18 @@ B.S., Ludwigshafen University of Business and Society, 2023}
 %\abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\begin{abstract}
-\normalsize
+\begin{center}
+\MakeUppercase{ABSTRACT}
+\end{center}
+
+\vspace{1em}
 This document evaluates the robustness of Hotelling’s $T^2$ multivariate statistical process control chart (MSPC) in the presence of missing data within Internet of Things and environmental sensor networks. While classical $T^2$ charts are widely used for anomaly detection, their behavior under incomplete data—a common challenge in modern sensor deployments—has been insufficiently characterized.  
 
 Using four environmental datasets, the thesis systematically examines how missing observations, reference window degradation, and interpolation-based reconstruction affect false-alarm control (\ac{ARL}$_0$) and detection performance (\ac{ARL}$_1$). Results demonstrate that Hotelling’s $T^2$ exhibits \emph{conditional robustness}: performance remains reliable up to approximately 20–25\% missingness when the reference covariance structure is stable. Beyond this threshold, interpolation alone cannot correct covariance distortion, leading to unstable run-length distributions and inflated false alarms. Seasonal reference extension and hybrid adaptation strategies improve robustness, while datasets with weak inter-variable correlation or nonstationary dynamics are particularly vulnerable.  
 
 These findings provide actionable guidance for practitioners deploying $T^2$ in incomplete-data environments, clarify the limits of classical MSPC, and identify directions for future research, including multivariate imputation, adaptive control limits, and integration with robust or distribution-free monitoring frameworks.
 
-\end{abstract}
+
 
 
 
@@ -226,6 +231,17 @@ These findings provide actionable guidance for practitioners deploying $T^2$ in 
 \include{chapters/7_Conclusion_Future_Work}
 
 \newpage
-\printbibliography[title={REFERENCES}, heading=bibintoc]
-\include{appendix}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\printbibliography[title={REFERENCES}]
+
+\clearpage
+
+\appendix
+
+
+
+\input{appendix}
+
 \end{document}

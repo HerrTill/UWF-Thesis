@@ -12,7 +12,7 @@
 \RequirePackage{setspace}
 \RequirePackage{titlesec}
 \RequirePackage{pdfpages}
-\RequirePackage[nottoc,notlot,notlof]{tocbibind}
+%\RequirePackage[nottoc,notlot,notlof,numbib]{tocbibind}
 \RequirePackage[margin=1in]{geometry}
 
 % \newcommand*{\project}[1]{\gdef\@project{#1}%
@@ -69,8 +69,6 @@
 \bibliography{references}
 
 
-
-
 % How to get leader dots for all of table of contents
 \makeatletter
 \renewcommand*\l@chapter[2]{%
@@ -85,7 +83,9 @@
       \leavevmode \bfseries
       \advance\leftskip\@tempdima
       \hskip -\leftskip
-      \arabic{chapter}.~\ignorespaces#1\nobreak
+      % Use the standard LaTeX method to render the line
+      % This prevents the "double title" issue while keeping the dots
+      #1\nobreak
       \xleaders\hbox{$\m@th
         \mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
       \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
@@ -95,8 +95,11 @@
 }
 \makeatother
 
-
-
+\makeatletter
+\renewcommand*\l@section[2]{%
+  \l@chapter{#1}{#2}%
+}
+\makeatother
   
 % To get leader dots but screws up formatting
 % \usepackage{tocloft}
